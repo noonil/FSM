@@ -11,6 +11,10 @@
 @implementation ElectricTime
 
 
+
+
+
+
 //表名
 +(NSString *)getTableName
 {
