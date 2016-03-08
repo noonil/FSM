@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UnAcceptedOrderAtSameTeamDetailViewController">
+            <connections>
+                <outlet property="ContentScrollView" destination="FLU-n8-LOk" id="XW7-1V-1p9"/>
+                <outlet property="headerView" destination="84c-BO-KRW" id="XTk-3b-wFf"/>
+                <outlet property="view" destination="17V-za-AAF" id="8mc-ze-BWo"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="17V-za-AAF">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="84c-BO-KRW" customClass="HeaderView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="yT7-yT-pzC"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9rC-He-jY1">
+                    <rect key="frame" x="0.0" y="528" width="320" height="40"/>
+                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="h9O-dj-ypK"/>
+                    </constraints>
+                    <state key="normal" title="受理">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="AcceptOrderAtSameTeam:" destination="-1" eventType="touchUpInside" id="PRW-5L-SgV"/>
+                    </connections>
+                </button>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FLU-n8-LOk">
+                    <rect key="frame" x="0.0" y="55" width="320" height="468"/>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="9rC-He-jY1" firstAttribute="top" secondItem="FLU-n8-LOk" secondAttribute="bottom" constant="5" id="68j-pH-XWb"/>
+                <constraint firstAttribute="bottom" secondItem="9rC-He-jY1" secondAttribute="bottom" id="Dtg-ep-vfR"/>
+                <constraint firstAttribute="trailing" secondItem="84c-BO-KRW" secondAttribute="trailing" id="HZg-4n-Pzu"/>
+                <constraint firstItem="84c-BO-KRW" firstAttribute="top" secondItem="17V-za-AAF" secondAttribute="top" id="IjT-gH-CDh"/>
+                <constraint firstAttribute="trailing" secondItem="FLU-n8-LOk" secondAttribute="trailing" id="LAa-cf-pfT"/>
+                <constraint firstAttribute="trailing" secondItem="9rC-He-jY1" secondAttribute="trailing" id="NSs-lz-lNj"/>
+                <constraint firstItem="84c-BO-KRW" firstAttribute="leading" secondItem="17V-za-AAF" secondAttribute="leading" id="Plc-jB-aag"/>
+                <constraint firstItem="FLU-n8-LOk" firstAttribute="leading" secondItem="17V-za-AAF" secondAttribute="leading" id="Rtz-sd-uyR"/>
+                <constraint firstItem="FLU-n8-LOk" firstAttribute="top" secondItem="84c-BO-KRW" secondAttribute="bottom" constant="5" id="jI8-z2-CfN"/>
+                <constraint firstItem="9rC-He-jY1" firstAttribute="leading" secondItem="17V-za-AAF" secondAttribute="leading" id="weO-pT-NjJ"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <point key="canvasLocation" x="169" y="203"/>
+        </view>
+    </objects>
+</document>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="45" id="KGk-i7-Jjw" customClass="OilMachineInfoCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12V-r4-dC6">
+                        <rect key="frame" x="18" y="8" width="56" height="29"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7p-dD-L5o">
+                        <rect key="frame" x="94" y="8" width="56" height="29"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="obm-fA-Mmu">
+                        <rect key="frame" x="170" y="8" width="56" height="29"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i2W-Qc-zgw">
+                        <rect key="frame" x="246" y="8" width="56" height="29"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="12V-r4-dC6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="4D3-Uh-2z3"/>
+                    <constraint firstItem="obm-fA-Mmu" firstAttribute="width" secondItem="12V-r4-dC6" secondAttribute="width" id="6fs-UG-Gi0"/>
+                    <constraint firstItem="obm-fA-Mmu" firstAttribute="height" secondItem="12V-r4-dC6" secondAttribute="height" id="9QA-FK-tPB"/>
+                    <constraint firstItem="i2W-Qc-zgw" firstAttribute="leading" secondItem="obm-fA-Mmu" secondAttribute="trailing" constant="20" id="9kg-et-aeL"/>
+                    <constraint firstItem="T7p-dD-L5o" firstAttribute="leading" secondItem="12V-r4-dC6" secondAttribute="trailing" constant="20" id="BtW-or-5Vf"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="obm-fA-Mmu" secondAttribute="bottom" id="K1F-yV-Cbj"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="i2W-Qc-zgw" secondAttribute="trailing" constant="10" id="Lgt-9q-cZb"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="i2W-Qc-zgw" secondAttribute="bottom" id="MGN-T5-DzH"/>
+                    <constraint firstItem="i2W-Qc-zgw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Nvj-7e-inb"/>
+                    <constraint firstItem="T7p-dD-L5o" firstAttribute="width" secondItem="12V-r4-dC6" secondAttribute="width" id="Wz4-ai-ijw"/>
+                    <constraint firstItem="12V-r4-dC6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="clT-ud-hhq"/>
+                    <constraint firstItem="T7p-dD-L5o" firstAttribute="height" secondItem="12V-r4-dC6" secondAttribute="height" id="dhY-ac-24e"/>
+                    <constraint firstItem="i2W-Qc-zgw" firstAttribute="width" secondItem="12V-r4-dC6" secondAttribute="width" id="hY8-er-Npl"/>
+                    <constraint firstItem="obm-fA-Mmu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="icL-f4-yCT"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="T7p-dD-L5o" secondAttribute="bottom" id="kBc-Uo-paJ"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="12V-r4-dC6" secondAttribute="bottom" id="lqj-7K-JFV"/>
+                    <constraint firstItem="obm-fA-Mmu" firstAttribute="leading" secondItem="T7p-dD-L5o" secondAttribute="trailing" constant="20" id="qIZ-fO-UaK"/>
+                    <constraint firstItem="T7p-dD-L5o" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="tSJ-eu-aQg"/>
+                    <constraint firstItem="i2W-Qc-zgw" firstAttribute="height" secondItem="12V-r4-dC6" secondAttribute="height" id="vCF-up-5ed"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="OilMachineID" destination="12V-r4-dC6" id="FkK-G4-wvg"/>
+                <outlet property="OilMachinePower" destination="i2W-Qc-zgw" id="6rL-Cc-LhE"/>
+                <outlet property="OilMachineType" destination="T7p-dD-L5o" id="rTg-jO-BMg"/>
+                <outlet property="Owner" destination="obm-fA-Mmu" id="tC7-HX-Qpq"/>
+            </connections>
+            <point key="canvasLocation" x="373" y="299.5"/>
+        </tableViewCell>
+    </objects>
+</document>

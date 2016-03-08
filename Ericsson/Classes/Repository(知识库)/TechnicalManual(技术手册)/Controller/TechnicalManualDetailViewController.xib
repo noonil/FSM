@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TechnicalManualDetailViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="webView" destination="XBF-iS-45t" id="p6g-ZK-nDJ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="homebackground" translatesAutoresizingMaskIntoConstraints="NO" id="xKo-qW-1eE">
+                    <rect key="frame" x="0.0" y="0.0" width="568" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="aTu-nU-gSk"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RPe-td-Q0X">
+                    <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="dsW-wo-LDg"/>
+                    </constraints>
+                    <state key="normal" image="notice_number.png"/>
+                    <connections>
+                        <action selector="back:" destination="-1" eventType="touchUpInside" id="OlF-y4-FsP"/>
+                    </connections>
+                </button>
+                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XBF-iS-45t">
+                    <rect key="frame" x="0.0" y="50" width="568" height="270"/>
+                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                </webView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="详情" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SxY-SG-06L">
+                    <rect key="frame" x="0.0" y="0.0" width="568" height="50"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="RPe-td-Q0X" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="0fD-tU-KBH"/>
+                <constraint firstItem="XBF-iS-45t" firstAttribute="top" secondItem="xKo-qW-1eE" secondAttribute="bottom" id="2Rk-jp-Bct"/>
+                <constraint firstItem="XBF-iS-45t" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7V7-bT-uPE"/>
+                <constraint firstItem="xKo-qW-1eE" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="AFr-Uk-oMr"/>
+                <constraint firstAttribute="trailing" secondItem="xKo-qW-1eE" secondAttribute="trailing" id="Dsj-yz-Tzp"/>
+                <constraint firstItem="SxY-SG-06L" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Fbe-bO-k98"/>
+                <constraint firstAttribute="trailing" secondItem="SxY-SG-06L" secondAttribute="trailing" id="QEl-Ot-zAt"/>
+                <constraint firstAttribute="bottom" secondItem="XBF-iS-45t" secondAttribute="bottom" id="bxg-NX-pG9"/>
+                <constraint firstItem="XBF-iS-45t" firstAttribute="top" secondItem="SxY-SG-06L" secondAttribute="bottom" id="c2p-hH-66T"/>
+                <constraint firstItem="XBF-iS-45t" firstAttribute="top" secondItem="RPe-td-Q0X" secondAttribute="bottom" id="gSb-mU-ES6"/>
+                <constraint firstAttribute="trailing" secondItem="XBF-iS-45t" secondAttribute="trailing" id="iwN-kB-dWl"/>
+                <constraint firstItem="RPe-td-Q0X" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="qbO-qJ-Wmu"/>
+                <constraint firstItem="SxY-SG-06L" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rAg-sY-bk6"/>
+                <constraint firstItem="xKo-qW-1eE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="zk5-PG-zK4"/>
+            </constraints>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <point key="canvasLocation" x="225" y="295"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="homebackground" width="240" height="400"/>
+        <image name="notice_number.png" width="24" height="24"/>
+    </resources>
+</document>

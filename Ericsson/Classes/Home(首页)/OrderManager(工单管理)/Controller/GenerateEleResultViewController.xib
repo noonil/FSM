@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9531"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GenerateEleResultViewController">
+            <connections>
+                <outlet property="view" destination="eay-oH-WKX" id="rry-wo-CbK"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="eay-oH-WKX">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wxz-8z-ffd" customClass="OrderResultItem">
+                    <rect key="frame" x="20" y="5" width="280" height="50"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="sSX-JC-cBz"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Wxz-8z-ffd" secondAttribute="trailing" constant="20" id="0VO-zt-j7d"/>
+                <constraint firstItem="Wxz-8z-ffd" firstAttribute="leading" secondItem="eay-oH-WKX" secondAttribute="leading" constant="20" id="lgD-9K-1Ic"/>
+                <constraint firstItem="Wxz-8z-ffd" firstAttribute="top" secondItem="eay-oH-WKX" secondAttribute="top" constant="5" id="uva-JC-NBj"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <point key="canvasLocation" x="438" y="299"/>
+        </view>
+    </objects>
+</document>

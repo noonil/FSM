@@ -1,0 +1,510 @@
+//
+//  NetResourceEditViewController.m
+//  Ericsson
+//
+//  Created by xuming on 15/12/5.
+//  Copyright (c) 2015年 范传斌. All rights reserved.
+//
+
+
+typedef NS_ENUM(NSInteger, NetResourceModelType) {
+    Common,//
+    Select ,//点击出来选择框类型的cell
+    OneButton,//带一个按钮的cell
+    TwoButton//带两个按钮的cell
+};
+
+#import "NetResourceEditViewController.h"
+#import "OneLabelOneTextFieldOneBtnCell.h"
+#import "OneButtonCell.h"
+#import "TwoButtonCell.h"
+#import "PopupObjectList.h"
+#import "MatainObjectBaseInfo.h"
+#import "PopupObjectList.h"
+#import "NetResourceSearchViewController.h"
+#import <BaiduMapAPI_Location/BMKLocationComponent.h>//引入定位功能所有的头文件
+#import "RMDateSelectionViewController.h"
+
+#define mmTextType @"num"
+#define mmSelectTextType @"char" //en name=lonLan
+#define mmPhotoType @"file"
+//#define mmOneButtonType @"char"
+
+
+@interface NetResourceEditViewController ()<UITableViewDataSource,UITableViewDelegate, PopupObjectListDelegate, UIGestureRecognizerDelegate, OneLabelOneTextFieldOneBtnCellDelegate,OneButtonCellSetupCoordinateOrTime,BMKLocationServiceDelegate>
+{
+
+    NSMutableArray * textTypeCellArray;//textfield类型的cell数组
+    NSDictionary *labelDic;
+    PopupObjectList *popList;
+    NSMutableDictionary *popDataDic;//存放pop展示数据的dic
+    BMKLocationService * _locService;
+
+}
+- (IBAction)backBtn_TouchUpInside:(id)sender;
+- (IBAction)ReportBtn_TouchUpInside:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *backBtn;
+@property (weak, nonatomic) IBOutlet UIButton *reportBtn;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (nonatomic,assign) double latitude;
+@property (nonatomic,assign) double longitude;
+@end
+
+@implementation NetResourceEditViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+
+    
+    [self setOthers];
+}
+-(void)setOthers{
+    
+    self.title=@"资源变更";
+    self.backBtn.backgroundColor= KBaseBlue;
+    self.reportBtn.backgroundColor=KBaseBlue;
+    self.tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+    
+    
+    textTypeCellArray=[NSMutableArray new];
+
+    
+    labelDic=@{@"录入时间":@"当前时间",
+               @"经纬度":@"当前位置"};
+    
+    
+    [self addTapGesture];
+    
+    _locService = [[BMKLocationService alloc]init];
+    _locService.delegate = self;
+
+}
+
+#pragma mark -隐藏键盘
+
+-(void)handleSingleTap{
+    for (int i=0; i<textTypeCellArray.count; i++) {
+        OneLabelOneTextFieldOneBtnCell *cell=(OneLabelOneTextFieldOneBtnCell *)textTypeCellArray[i];
+        [cell.oneTextField resignFirstResponder];
+    }
+    
+    
+}
+
+-(void)addTapGesture{
+    UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap)];
+    [self.view addGestureRecognizer:singleTap];
+    singleTap.delegate = self;
+}
+
+
+#pragma mark -消息通知
+//- (void) keyboardDidShow:(NSNotification *)notify {
+//    CGFloat kbHeight = [[notify.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;//获取键盘高度，在不同设备上，以及中英文下是不同的，很多网友的解决方案都把它定死了。
+//    // 取得键盘的动画时间，这样可以在视图上移的时候更连贯
+//    double duration = [[notify.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+//    CGFloat screenHeight = self.view.bounds.size.height;
+//    if (txtButtom + kbHeight < KIphoneHeight) return;//若键盘没有遮挡住视图则不进行整个视图上移
+//    
+//    // 键盘会盖住输入框, 要移动整个view了
+//    viewYOffset = txtButtom + kbHeight - screenHeight ;
+//    
+//    if (viewYOffset>0) {
+//        CGRect rect=self.view.frame;
+//        rect.origin.y=rect.origin.y-kbHeight+70;//70是底部按钮的高度
+//        self.view.frame =rect;
+//        
+//        [UIView commitAnimations];
+//    }
+//    
+//    
+//}
+
+
+
+- (void)keyboardWillShow:(id)sender {
+    NSLog(@"self.tableView.contentSize show before =%@",NSStringFromCGSize(self.tableView.contentSize));
+
+    NSDictionary * info = [sender userInfo];
+    NSValue * value = [info objectForKey:UIKeyboardFrameBeginUserInfoKey];
+    CGSize keyboardSize = [value CGRectValue].size;
+    CGRect viewFrame = self.tableView.frame;
+    viewFrame.size.height =self.tableView.contentSize.height + keyboardSize.height+64 ;
+    self.tableView.contentSize = viewFrame.size;
+    NSLog(@"self.tableView.contentSize show after =%@",NSStringFromCGSize(self.tableView.contentSize));
+
+}
+
+
+- (void)keyboardWillHide:(id)sender {
+    NSLog(@"self.tableView.contentSize hide before =%@",NSStringFromCGSize(self.tableView.contentSize));
+
+    NSDictionary * info = [sender userInfo];
+    NSValue * value = [info objectForKey:UIKeyboardFrameBeginUserInfoKey];
+    CGSize keyboardSize = [value CGRectValue].size;
+    CGRect viewFrame = self.tableView.frame;
+    viewFrame.size.height = self.tableView.contentSize.height-keyboardSize.height -64;
+    self.tableView.contentSize = viewFrame.size;
+    NSLog(@"self.tableView.contentSize hide after =%@",NSStringFromCGSize(self.tableView.contentSize));
+
+}
+
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark -table delegate
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  
+    MatainObjectBaseInfo *model=_dataArray[indexPath.row];
+    
+    if (
+        [model.fieldEnName isEqualToString: @"PIC"] ||
+        [model.fieldEnName isEqualToString: @"lonLan"]  ||
+        [model.fieldEnName isEqualToString: @"CREATE_TIME"]
+        )
+    {
+        return 100;
+    }
+    else
+        return 70;
+
+
+    return 0;
+
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+
+    return [_dataArray count];
+}
+
+
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    MatainObjectBaseInfo *model=_dataArray[indexPath.row];
+    
+    if ([model.fieldEnName isEqualToString: @"CREATE_TIME"] ||[model.fieldEnName isEqualToString: @"lonLan"]) {
+        OneButtonCell  *cell=[OneButtonCell cellWithTableView:tableView];
+        cell.oneLabel.text=model.fieldChName;
+        cell.delegate = self;
+        cell.oneTextField.text=model.showOldData;
+        cell.oneTextField.enabled=NO;
+        [cell.oneButton setTitle:[labelDic objectForKey:model.fieldChName] forState:UIControlStateNormal];
+        cell.model=model;
+        cell.tag=indexPath.row;
+
+
+        return cell;
+        
+
+    }
+    else if ([model.fieldEnName isEqualToString: @"PIC"]  )
+    {
+        TwoButtonCell  *cell=[TwoButtonCell cellWithTableView:tableView];
+        cell.oneLabel.text=model.fieldChName;
+        cell.oneTextField.text=model.showOldData;
+        cell.oneTextField.enabled=NO;
+        cell.model=model;
+        cell.tag=indexPath.row;
+
+        return cell;
+        
+    }
+    else if ([model.isChoose isEqualToString: @"0"])
+    {
+        
+        OneLabelOneTextFieldOneBtnCell  *cell=[OneLabelOneTextFieldOneBtnCell cellWithTableView:tableView];
+        cell.oneLabel.text=model.fieldChName;
+        cell.oneTextField.text=model.showOldData;
+        cell.oneImgView.hidden=YES;
+        cell.oneButton.hidden=YES;
+        cell.oneTextField.delegate=self;
+        [textTypeCellArray addObject:cell];
+        cell.model=model;
+        cell.tag=indexPath.row;
+
+        return cell;
+        
+    }
+    else
+    {
+        
+        OneLabelOneTextFieldOneBtnCell  *cell=[OneLabelOneTextFieldOneBtnCell cellWithTableView:tableView];
+        cell.oneLabel.text=model.fieldChName;
+        cell.oneTextField.text=model.showOldData;
+        cell.delegate=self;
+        cell.model=model;
+        cell.tag=indexPath.row;
+
+
+        return cell;
+        
+    }
+
+    return nil;
+
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell=[tableView cellForRowAtIndexPath:indexPath];
+    
+    
+}
+
+
+
+-(void)selectBtn_TouchUpInside:(UIButton *)button{
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:button.tag inSection:0];
+//    
+//
+//    Cell2 *cell=(Cell2 *)[_tableView cellForRowAtIndexPath:indexPath];
+//    
+//    NSMutableArray * dataArr=[[NSMutableArray alloc]initWithObjects:@"好的",@"你们", nil];
+//    pop=[[PopupObjectList alloc]initWithData:dataArr selectedData:cell.infoTextView.text fromWhichObject:cell];
+//    pop.delegate=self;
+//    [pop presentPopupControllerAnimated];
+}
+
+
+
+#pragma mark - cell Delegate
+
+-(void)OneLabelOneTextFieldOneBtnCellTouchDown:(OneLabelOneTextFieldOneBtnCell *)cell{
+    //隐藏键盘
+    for (int i=0; i<textTypeCellArray.count; i++) {
+        OneLabelOneTextFieldOneBtnCell *cell=(OneLabelOneTextFieldOneBtnCell *)textTypeCellArray[i];
+        [cell.oneTextField resignFirstResponder];
+    }
+
+    [self loadListData:cell];
+}
+
+- (void)clickBtnToSetupCoordinateOrWithCell:(OneButtonCell *)cell
+{
+    if ([cell.oneLabel.text isEqualToString:@"经纬度"]) {
+        
+        // 获取经纬度
+        [self localCoordinate:cell];
+        
+    }else if ([cell.oneLabel.text isEqualToString:@"录入时间"]){
+        // 选择时间
+        //Create select action
+        RMAction *selectAction = [RMAction actionWithTitle:@"确认" style:RMActionStyleDone andHandler:^(RMActionController *controller) {
+            NSLog(@"Successfully selected date: %@", ((UIDatePicker *)controller.contentView).date);
+            
+            cell.oneTextField.text = [self stringFromDate:((UIDatePicker *)controller.contentView).date];
+        }];
+        
+        //Create cancel action
+        RMAction *cancelAction = [RMAction actionWithTitle:@"取消" style:RMActionStyleCancel andHandler:^(RMActionController *controller) {
+            NSLog(@"Date selection was canceled");
+        }];
+        
+        //Create date selection view controller
+        RMDateSelectionViewController *dateSelectionController = [RMDateSelectionViewController actionControllerWithStyle:RMActionControllerStyleDefault selectAction:selectAction andCancelAction:cancelAction];
+        
+        dateSelectionController.title = @"录入时间选择";
+//        dateSelectionController.message = @"This is a test message.\nPlease choose a date and press 'Select' or 'Cancel'.";
+        
+        //Now just present the date selection controller using the standard iOS presentation method
+        [self presentViewController:dateSelectionController animated:YES completion:nil];
+    
+    }
+}
+
+
+
+#pragma mark - popupObjectList delegate
+
+- (void)popupObjectListDidSelectRowAtIndexPath:(NSString *)selectedData fromWhichObject:(id)fromWhichObject row:(NSInteger)row{
+    
+    if ([fromWhichObject isMemberOfClass:[OneLabelOneTextFieldOneBtnCell class]]) {
+        OneLabelOneTextFieldOneBtnCell *cell=(OneLabelOneTextFieldOneBtnCell *)fromWhichObject;
+        cell.oneTextField.text=selectedData;
+        MatainObjectBaseInfo *model=_dataArray[cell.tag];
+        model.showChgData=selectedData;
+      //  model.showChgData=@"32";
+    }
+    else if ([fromWhichObject isMemberOfClass:[OneButtonCell class]]) {
+        OneButtonCell *cell=(OneButtonCell *)fromWhichObject;
+    }
+    if ([fromWhichObject isMemberOfClass:[TwoButtonCell class]]) {
+        TwoButtonCell  *cell=(TwoButtonCell *)fromWhichObject;
+    }
+}
+
+#pragma  mark -server data
+- (void) loadListData:(OneLabelOneTextFieldOneBtnCell *)cell
+{
+    MatainObjectBaseInfo *model=cell.model;
+
+    NSDictionary *params = @{@"tableName":_matainObject.tablename,
+                             @"enField":model.fieldEnName,
+                             };
+    
+    
+    NSString *sopeStr=
+    [[SoapUtility shareInstance] BuildSoapWithModelName:@"FSMInformation" methodName:@"FSMGetMObjectAttrChooseValues" sessonId:sessonId requestData:params];
+    
+    //异步请求
+    [[SoapService shareInstance] PostAsync:sopeStr Success:^(NSDictionary *dic) {
+        if ([dic[@"retCode"]  isEqual: @0]) {
+
+            popList=[[PopupObjectList alloc]initWithData:dic[@"attrChooseValues"] selectedData:cell.oneTextField.text fromWhichObject:cell];
+            popList.delegate=self;
+            [popList presentPopupControllerAnimated];
+            
+            
+        }
+        else{
+        
+            [MBProgressHUD showError:KHudResponse1];
+        }
+
+        
+        
+    } falure:^(NSError *err) {
+        
+        [MBProgressHUD showError:KHudErrorMessage];
+
+        
+    }
+     ];
+    
+}
+
+
+- (void) loadData
+{
+    //请求数据示例
+    
+    // NSMutableArray *arr= [MatainObject keyValuesArrayWithObjectArray:_dataArray];
+    
+    NSMutableArray *arr=[NSMutableArray array];
+    for (int i=0; i<_dataArray.count; i++) {
+        MatainObjectBaseInfo *baseInfo=(MatainObjectBaseInfo *)_dataArray[i];
+        NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+        [dic setObject:@"" forKey:@"tableName"];
+        [dic setObject:baseInfo.fieldEnName forKey:@"fieldName"];
+        [dic setObject:baseInfo.fieldChName forKey:@"fieldChnName"];
+        [dic setObject:baseInfo.oldData forKey:@"oldData"];
+        [dic setObject:baseInfo.showOldData forKey:@"showOldData"];
+        [dic setObject:baseInfo.showChgData forKey:@"showChgData"];
+        [arr addObject:dic];
+    }
+    
+    
+    NSDictionary *params = @{@"objectCode":_matainObject.maintenanceId,
+#warning objectName 传入的参数有错误，需修改
+                             @"objectName":_matainObject.maintenanceObjectTitle?_matainObject.maintenanceObjectTitle:_matainObject.maintenanceObjectName,
+                             @"objectTypeCode":_matainObject.maintenanceObjectType,
+                             @"objectTypeName":_matainObject.maintenanceTypeName?_matainObject.maintenanceTypeName:@"",
+                             @"attrChangeDetails":arr
+                             
+                             };
+  
+    
+    
+    NSString *sopeStr=
+    [[SoapUtility shareInstance] BuildSoapWithModelName:@"FSMInformation" methodName:@"FSMPostMObjectChgInfo" sessonId:sessonId requestData:params];
+    
+    //异步请求
+    [[SoapService shareInstance] PostAsync:sopeStr Success:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUD];
+        if ([dic[@"retCode"]  isEqual: @0]) {
+            
+            [MBProgressHUD showSuccess:KHudSuccessMessage];
+            
+            for (int i=0 ; i<self.navigationController.viewControllers.count; i++) {
+                UIViewController *vc=self.navigationController.viewControllers[i];
+                if ([vc isMemberOfClass:[NetResourceSearchViewController class]]) {
+                    [self.navigationController popToViewController:vc animated:YES];
+                }
+            }
+            
+        }
+        else{
+            [MBProgressHUD showError:KHudResponse1];
+            
+        }
+        
+        
+        
+    } falure:^(NSError *err) {
+        
+        [MBProgressHUD hideHUD];
+        [MBProgressHUD showError:KHudErrorMessage];
+        
+        
+    }
+     ];
+    
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+- (IBAction)backBtn_TouchUpInside:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)ReportBtn_TouchUpInside:(id)sender {
+    
+    [MBProgressHUD showMessage:KHudIsUpdataMessage];
+    [self loadData];
+    
+}
+
+#pragma mark -get/set
+-(NSMutableArray *)dataArray{
+    if (_dataArray==nil) {
+        _dataArray=[[NSMutableArray alloc]init];
+    }
+    return _dataArray;
+    
+}
+
+#pragma mark - other
+//处理位置坐标更新
+- (void)localCoordinate:(OneButtonCell*)cell
+{
+    // 启动LocaltionSerview
+    [_locService startUserLocationService];
+    
+     cell.oneTextField.text= [NSString stringWithFormat:@"%f、%f",_latitude,_longitude];
+   
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5* NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        cell.oneTextField.text= [NSString stringWithFormat:@"%f、%f",_latitude,_longitude];
+    });
+}
+- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
+{
+    _latitude = userLocation.location.coordinate.latitude;
+    _longitude = userLocation.location.coordinate.longitude;
+    
+}
+
+- (NSString*)stringFromDate:(NSDate*)date
+{
+    NSDateFormatter * fmt = [[NSDateFormatter alloc]init];
+    fmt.dateFormat = @"yyyy-MM-dd";
+    NSString * dateStr = [fmt stringFromDate:date];
+    return dateStr;
+}
+
+@end

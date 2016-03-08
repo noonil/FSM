@@ -1,0 +1,265 @@
+//
+//  OperatingGuideViewController.m
+//  Ericsson
+//
+//  Created by 张永鹏 on 16/1/6.
+//  Copyright © 2016年 范传斌. All rights reserved.
+//
+
+#import "OperatingGuideViewController.h"
+#import "PopupObjectList.h"
+#import "MBProgressHUD.h"
+#import "OperatingGuideList.h"
+
+@interface OperatingGuideViewController ()<PopupObjectListDelegate>{
+    
+    NSMutableArray *workTypesNameArr;
+    NSMutableArray *workTypesIdArr; //用于存放工单类型Id
+    
+    //用于存放获取到的工单子类型
+    NSMutableArray *workChildTypesNameArr;
+    NSMutableArray *workChildTypesIdArr;
+    
+    PopupObjectList *pop;
+    
+    NSString *workTypesIdStr; //用于记录选择好的工单类型的ID
+    NSString *workChildTypesIdStr; //工单子类型ID
+}
+@property (weak, nonatomic) IBOutlet UITextField *workTypesText;
+@property (weak, nonatomic) IBOutlet UITextField *workChildTypesText;
+
+@end
+
+@implementation OperatingGuideViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    self.title = @"操作规程";
+    [MBProgressHUD showMessage:@"正在获取工单类型列表"];
+    
+    workTypesNameArr = [[NSMutableArray alloc] init];
+    workChildTypesNameArr = [[NSMutableArray alloc] init];
+    workTypesIdArr = [[NSMutableArray alloc] init];
+    workChildTypesIdArr = [[NSMutableArray alloc] init];
+    
+    self.workTypesText.text = self.woType;
+    workTypesIdStr = self.woTypeId;
+    self.workChildTypesText.text = self.woChildType;
+    workChildTypesIdStr = self.woChildTypeId;
+    
+    [self loadData_WorkTypes];
+    
+    if (![workTypesIdStr isEqualToString:@""]) {
+        [self loadData_WorkChildTypes];
+    }
+    
+    UIBarButtonItem *leftItem=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"notice_number.png"]  style:UIBarButtonItemStyleBordered target:self action:@selector(back)];
+    [leftItem setTintColor:[UIColor whiteColor]];
+    [[self navigationItem] setLeftBarButtonItem:leftItem];
+    
+}
+
+-(void)back{
+    
+    if (self.handlingOrderDetail!=nil) {
+        _handlingOrderDetail.popButtonView.hidden=NO;
+    }
+    else if (self.handledOrderDetail!=nil) {
+        _handledOrderDetail.popButtonView.hidden=NO;
+    }
+    
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+
+/** 重写get、set方法，防止参数为nil */
+-(NSString *)woType{
+    if (!_woType) {
+        _woType = @"";
+    }
+    return _woType;
+}
+
+-(NSString *)woTypeId{
+    if (!_woTypeId) {
+        _woTypeId = @"";
+    }
+    return _woTypeId;
+}
+
+-(NSString *)woChildType{
+    if (!_woChildType) {
+        _woChildType = @"";
+    }
+    return _woChildType;
+}
+-(NSString *)woChildTypeId{
+    if (!_woChildTypeId) {
+        _woChildTypeId = @"";
+    }
+    return _woChildTypeId;
+}
+
+
+
+#pragma mark -- 工单类型数据请求
+-(void)loadData_WorkTypes{
+    NSDictionary *params = @{@"userId":KUserId};
+    
+    NSString *sopeStr = [[SoapUtility shareInstance] BuildSoapWithModelName:@"FSMMaterial" methodName:@"FSMGetOprGuideGetWoTypes" sessonId:KSessionId requestData:params];
+    
+    [[SoapService shareInstance] PostAsync:sopeStr Success:^(NSDictionary *dic) {
+        
+        [MBProgressHUD hideHUD];
+        
+        if ([dic[@"retCode"] isEqual: @0]){
+            NSMutableArray *workTypesArr = dic[@"woTypes"];
+            
+            if (workTypesArr.count > 0) {
+                for (NSDictionary *tempDic in workTypesArr) {
+                    NSString *name = [tempDic objectForKey:@"name"];
+                    NSString *woTypeId = [tempDic objectForKey:@"value"];
+                    [workTypesNameArr addObject:name];
+                    [workTypesIdArr addObject:woTypeId];
+                }
+            }
+            else{
+                [self.view makeToast:@"工单类型为空，请尝试重新登录"];
+            }
+            
+        }
+        
+        
+        else if ([dic[@"retCode"] isEqual:@(-1)]){
+            
+            [self.view makeToast:@"请求失败"];
+            
+        }
+        
+        
+        else if ([dic[@"retCode"] isEqual:@(-2)]){
+            UIViewController * rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
+            [UIApplication sharedApplication].keyWindow.rootViewController = rootViewController;
+            [self.view makeToast:@"会话超时,请重新登录"];
+        }
+        
+        
+    } falure:^(NSError *response) {
+        [MBProgressHUD hideHUD];
+        [self.view makeToast:@"获取工单类型失败"];
+    }];
+}
+
+//工单子类型数据请求
+-(void)loadData_WorkChildTypes{
+    [workChildTypesNameArr removeAllObjects];
+    [workChildTypesIdArr removeAllObjects];
+    
+    NSDictionary *params = @{@"userId":KUserId,@"woTypeId":workTypesIdStr};
+    
+    NSString *sopeStr = [[SoapUtility shareInstance] BuildSoapWithModelName:@"FSMMaterial" methodName:@"FSMGetOprGuideGetWoChildTypes" sessonId:KSessionId requestData:params];
+    
+    [[SoapService shareInstance] PostAsync:sopeStr Success:^(NSDictionary *dic) {
+        
+        
+        if ([dic[@"retCode"] isEqual:@0]) {
+            NSMutableArray *workChildTypesArr = dic[@"woChildTypes"];
+            
+            for (NSDictionary *tempDic in workChildTypesArr) {
+                NSString *name = [tempDic objectForKey:@"name"];
+                NSString *woChildTypesId = [tempDic objectForKey:@"value"];
+                [workChildTypesNameArr addObject:name];
+                [workChildTypesIdArr addObject:woChildTypesId];
+            }
+        }
+        
+        
+        else if ([dic[@"retCode"] isEqual:@(-1)]){
+            
+            [self.view makeToast:@"请求失败"];
+            
+        }
+        
+        
+        else if ([dic[@"retCode"] isEqual:@(-2)]){
+            UIViewController * rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
+            [UIApplication sharedApplication].keyWindow.rootViewController = rootViewController;
+            [self.view makeToast:@"会话超时,请重新登录"];
+        }
+        
+    } falure:^(NSError *response) {
+        [self.view makeToast:@"获取工单子类型失败"];
+        NSLog(@"falure = %@",response);
+    }];
+}
+
+//工单类型选择  按钮点击事件
+- (IBAction)workTypesBtnClick:(UIButton *)sender {
+    pop = [[PopupObjectList alloc] initWithData:workTypesNameArr selectedData:_workTypesText.text fromWhichObject:_workTypesText];
+    pop.delegate = self;
+    [pop presentPopupControllerAnimated];
+}
+//工单子类型选择  按钮点击事件
+- (IBAction)workChildTypesBtnClick:(UIButton *)sender {
+    if (workTypesIdStr && ![workTypesIdStr isEqual: @""]) {
+        
+        if (workChildTypesNameArr.count != 0) {
+            pop = [[PopupObjectList alloc] initWithData:workChildTypesNameArr selectedData:_workChildTypesText.text fromWhichObject:_workChildTypesText];
+            pop.delegate = self;
+            [pop presentPopupControllerAnimated];
+        }
+        else{
+            [self.view makeToast:@"工单子类型为空"];
+        }
+        
+    }
+    else{
+        [self.view makeToast:@"请先选择工单类型"];
+    }
+}
+
+//实现委托方法
+-(void)popupObjectListDidSelectRowAtIndexPath:(NSString *)selectedData fromWhichObject:(id)fromWhichObject row:(NSInteger)row{
+    if (fromWhichObject == _workTypesText) {
+        _workTypesText.text = workTypesNameArr[row];
+        workTypesIdStr = workTypesIdArr[row];
+        
+        [self loadData_WorkChildTypes];
+        
+        _workChildTypesText.text = @"";
+        workChildTypesIdStr = nil;
+    }
+    else if (fromWhichObject == _workChildTypesText){
+        _workChildTypesText.text = workChildTypesNameArr[row];
+        workChildTypesIdStr = workChildTypesIdArr[row];
+    }
+}
+
+//点击查询
+- (IBAction)seachBtnClick:(UIButton *)sender {
+    OperatingGuideList *oprGuideList = [[OperatingGuideList alloc] initWithNibName:@"OperatingGuideList" bundle:nil];
+    
+    oprGuideList.workTypesId = workTypesIdStr;
+    oprGuideList.workChildTypesId = workChildTypesIdStr;
+    
+    [self.navigationController pushViewController:oprGuideList animated:YES];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>icon</key>
+		<string>search_icon.png</string>
+		<key>name</key>
+		<string>耗材查询与申请</string>
+	</dict>
+	<dict>
+		<key>icon</key>
+		<string>my_resource.png</string>
+		<key>name</key>
+		<string>我的申请单</string>
+	</dict>
+	<dict>
+		<key>icon</key>
+		<string>check_choosed.png</string>
+		<key>name</key>
+		<string>领用申请</string>
+	</dict>
+</array>
+</plist>

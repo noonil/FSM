@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="orH-OA-Wyw" customClass="HomeTable_SectionHeadView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shopper_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="JUu-I4-Kmw">
+                    <rect key="frame" x="8" y="19" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="aEf-L6-0C9"/>
+                        <constraint firstAttribute="width" constant="20" id="frw-wA-QVr"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在处理工单" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="joU-22-Xbs">
+                    <rect key="frame" x="33" y="8" width="220" height="42"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cgc-Tu-kah">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="8"/>
+                    <color key="backgroundColor" red="0.78823529411764703" green="0.78823529411764703" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="8" id="aYC-aG-aoL"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBm-cy-RG6">
+                    <rect key="frame" x="261" y="8" width="59" height="42"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="59" id="K06-2e-4ho"/>
+                    </constraints>
+                    <state key="normal" title="更多">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="mornInfoBtn:" destination="orH-OA-Wyw" eventType="touchUpInside" id="l5n-RD-0jG"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="joU-22-Xbs" firstAttribute="centerY" secondItem="JUu-I4-Kmw" secondAttribute="centerY" id="8qc-3M-K9d"/>
+                <constraint firstAttribute="trailing" secondItem="Cgc-Tu-kah" secondAttribute="trailing" id="9BY-BX-9gh"/>
+                <constraint firstAttribute="trailing" secondItem="IBm-cy-RG6" secondAttribute="trailing" id="FL7-yv-lCl"/>
+                <constraint firstItem="Cgc-Tu-kah" firstAttribute="top" secondItem="orH-OA-Wyw" secondAttribute="top" id="G9r-mb-iUr"/>
+                <constraint firstItem="joU-22-Xbs" firstAttribute="top" secondItem="Cgc-Tu-kah" secondAttribute="bottom" id="Q7p-XE-PQF"/>
+                <constraint firstItem="JUu-I4-Kmw" firstAttribute="leading" secondItem="orH-OA-Wyw" secondAttribute="leading" constant="8" id="UQA-vd-0f0"/>
+                <constraint firstAttribute="bottom" secondItem="joU-22-Xbs" secondAttribute="bottom" id="bJJ-Qh-wrL"/>
+                <constraint firstItem="IBm-cy-RG6" firstAttribute="top" secondItem="Cgc-Tu-kah" secondAttribute="bottom" id="g5q-81-rm6"/>
+                <constraint firstItem="Cgc-Tu-kah" firstAttribute="leading" secondItem="orH-OA-Wyw" secondAttribute="leading" id="jFX-Nn-fuS"/>
+                <constraint firstItem="IBm-cy-RG6" firstAttribute="leading" secondItem="joU-22-Xbs" secondAttribute="trailing" constant="8" id="nYZ-eK-K1P"/>
+                <constraint firstItem="IBm-cy-RG6" firstAttribute="centerY" secondItem="JUu-I4-Kmw" secondAttribute="centerY" id="qGd-mk-dlm"/>
+                <constraint firstItem="joU-22-Xbs" firstAttribute="leading" secondItem="JUu-I4-Kmw" secondAttribute="trailing" constant="5" id="xIr-nS-cbp"/>
+                <constraint firstAttribute="bottom" secondItem="IBm-cy-RG6" secondAttribute="bottom" id="zxs-4F-s3i"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="label" destination="joU-22-Xbs" id="zhC-Ns-q5v"/>
+                <outlet property="moreInfoBtn" destination="IBm-cy-RG6" id="3uv-nc-g49"/>
+            </connections>
+            <point key="canvasLocation" x="288" y="292"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="shopper_icon.png" width="48" height="48"/>
+    </resources>
+</document>

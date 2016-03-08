@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>9BFFA0EF-0FE0-4544-B56C-619ADA838DF8</string>
+	<key>IDESourceControlProjectName</key>
+	<string>FSM</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>cfed0975-bd08-9047-85aa-1a81be32b3a9++505</key>
+		<string>https://192.168.0.119/svn/%E7%88%B1%E7%AB%8B%E4%BF%A1FSM%E7%B3%BB%E7%BB%9F/trunk</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>FSM.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>cfed0975-bd08-9047-85aa-1a81be32b3a9++505</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>cfed0975-bd08-9047-85aa-1a81be32b3a9++505</key>
+		<string>https://192.168.0.119/svn/%E7%88%B1%E7%AB%8B%E4%BF%A1FSM%E7%B3%BB%E7%BB%9F</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://192.168.0.119/svn/%E7%88%B1%E7%AB%8B%E4%BF%A1FSM%E7%B3%BB%E7%BB%9F/trunk/FSM.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>cfed0975-bd08-9047-85aa-1a81be32b3a9++505</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>cfed0975-bd08-9047-85aa-1a81be32b3a9++505</string>
+			<key>IDESourceControlWCCName</key>
+			<string>%E7%88%B1%E7%AB%8B%E4%BF%A1FSM%E7%B3%BB%E7%BB%9F</string>
+		</dict>
+	</array>
+</dict>
+</plist>

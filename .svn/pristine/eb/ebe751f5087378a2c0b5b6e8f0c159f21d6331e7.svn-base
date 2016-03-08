@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="299" id="KGk-i7-Jjw" customClass="FeedBackInfoCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="299"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="298"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Vny-3U-VVy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="299"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </tableView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Vny-3U-VVy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="IQg-Xt-sco"/>
+                    <constraint firstItem="Vny-3U-VVy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Noc-AZ-nC0"/>
+                    <constraint firstAttribute="bottom" secondItem="Vny-3U-VVy" secondAttribute="bottom" id="gi2-yw-v5X"/>
+                    <constraint firstAttribute="trailing" secondItem="Vny-3U-VVy" secondAttribute="trailing" id="s9q-nS-Bzu"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="tableView" destination="Vny-3U-VVy" id="Kf5-eg-o57"/>
+            </connections>
+            <point key="canvasLocation" x="218" y="276.5"/>
+        </tableViewCell>
+    </objects>
+</document>

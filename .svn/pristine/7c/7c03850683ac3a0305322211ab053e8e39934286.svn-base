@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UnAcceptedOrderDetailViewController">
+            <connections>
+                <outlet property="ContentScrollView" destination="cHx-r7-Vdh" id="x3L-KX-1cX"/>
+                <outlet property="headerView" destination="etP-wz-cK1" id="53A-CD-lZq"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="etP-wz-cK1" customClass="HeaderView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="ahm-3Y-Yid"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0zm-6K-gSZ">
+                    <rect key="frame" x="0.0" y="528" width="100" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="cAz-be-Tlw"/>
+                    </constraints>
+                    <state key="normal" title="受理" backgroundImage="searchbg.png">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="AcceptOrder:" destination="-1" eventType="touchUpInside" id="HsX-AO-AKa"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QkM-VR-FHY">
+                    <rect key="frame" x="110" y="528" width="100" height="40"/>
+                    <state key="normal" title="二派" backgroundImage="searchbg.png">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="TransferOrder:" destination="-1" eventType="touchUpInside" id="LAg-CN-1DC"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iYX-sb-3Xj">
+                    <rect key="frame" x="220" y="528" width="100" height="40"/>
+                    <state key="normal" title="拒收" backgroundImage="searchbg.png">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="RejectOrder:" destination="-1" eventType="touchUpInside" id="jqg-Re-yDf"/>
+                    </connections>
+                </button>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cHx-r7-Vdh">
+                    <rect key="frame" x="0.0" y="55" width="320" height="468"/>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="cHx-r7-Vdh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5wD-IS-vg8"/>
+                <constraint firstAttribute="bottom" secondItem="iYX-sb-3Xj" secondAttribute="bottom" id="9Ie-1y-bI3"/>
+                <constraint firstAttribute="trailing" secondItem="cHx-r7-Vdh" secondAttribute="trailing" id="CMe-P1-gS3"/>
+                <constraint firstAttribute="bottom" secondItem="0zm-6K-gSZ" secondAttribute="bottom" id="D7f-K3-Wn1"/>
+                <constraint firstItem="iYX-sb-3Xj" firstAttribute="leading" secondItem="QkM-VR-FHY" secondAttribute="trailing" constant="10" id="DD6-p5-zhm"/>
+                <constraint firstItem="QkM-VR-FHY" firstAttribute="width" secondItem="0zm-6K-gSZ" secondAttribute="width" id="GAL-8I-ouc"/>
+                <constraint firstItem="etP-wz-cK1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="LNA-rs-SvS"/>
+                <constraint firstItem="QkM-VR-FHY" firstAttribute="height" secondItem="0zm-6K-gSZ" secondAttribute="height" id="LuW-UZ-2i6"/>
+                <constraint firstItem="QkM-VR-FHY" firstAttribute="centerY" secondItem="0zm-6K-gSZ" secondAttribute="centerY" id="Mjg-Wu-nti"/>
+                <constraint firstItem="iYX-sb-3Xj" firstAttribute="width" secondItem="0zm-6K-gSZ" secondAttribute="width" id="Rbo-5B-BzA"/>
+                <constraint firstItem="QkM-VR-FHY" firstAttribute="leading" secondItem="0zm-6K-gSZ" secondAttribute="trailing" constant="10" id="Z6y-Ca-dPs"/>
+                <constraint firstItem="0zm-6K-gSZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ali-Hx-lrk"/>
+                <constraint firstItem="iYX-sb-3Xj" firstAttribute="centerY" secondItem="0zm-6K-gSZ" secondAttribute="centerY" id="gqy-qD-JqF"/>
+                <constraint firstItem="iYX-sb-3Xj" firstAttribute="height" secondItem="0zm-6K-gSZ" secondAttribute="height" id="iH7-Kk-7pm"/>
+                <constraint firstAttribute="trailing" secondItem="etP-wz-cK1" secondAttribute="trailing" id="jsj-sT-nsr"/>
+                <constraint firstItem="cHx-r7-Vdh" firstAttribute="top" secondItem="etP-wz-cK1" secondAttribute="bottom" constant="5" id="mc9-yH-Pzt"/>
+                <constraint firstAttribute="trailing" secondItem="iYX-sb-3Xj" secondAttribute="trailing" id="rht-Ec-LrQ"/>
+                <constraint firstItem="etP-wz-cK1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="tWY-cm-Uij"/>
+                <constraint firstItem="iYX-sb-3Xj" firstAttribute="top" secondItem="cHx-r7-Vdh" secondAttribute="bottom" constant="5" id="wZJ-gv-Hzm"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <point key="canvasLocation" x="236" y="226"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="searchbg.png" width="278" height="84"/>
+    </resources>
+</document>

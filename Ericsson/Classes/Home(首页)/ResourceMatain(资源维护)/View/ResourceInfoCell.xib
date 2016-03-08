@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="113" id="KGk-i7-Jjw" customClass="ResourceInfoCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="113"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="112.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1l-Kx-OV0">
+                        <rect key="frame" x="162" y="8" width="150" height="97"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="150" id="Elj-ry-BNd"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBa-yL-8M5">
+                        <rect key="frame" x="8" y="8" width="154" height="97"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="b1l-Kx-OV0" firstAttribute="leading" secondItem="dBa-yL-8M5" secondAttribute="trailing" id="4sb-2c-t0x"/>
+                    <constraint firstItem="dBa-yL-8M5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="86K-dz-y02"/>
+                    <constraint firstItem="dBa-yL-8M5" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="Bw2-uc-oCb"/>
+                    <constraint firstItem="dBa-yL-8M5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="keR-SZ-G9g"/>
+                    <constraint firstItem="b1l-Kx-OV0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="peL-dn-xz6"/>
+                    <constraint firstItem="b1l-Kx-OV0" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="rcZ-Nz-kDT"/>
+                    <constraint firstItem="b1l-Kx-OV0" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="rli-pg-d6r"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="resourceOrder" destination="b1l-Kx-OV0" id="zOQ-bg-hDh"/>
+                <outlet property="resourceOwner" destination="dBa-yL-8M5" id="cJq-B3-KLA"/>
+            </connections>
+            <point key="canvasLocation" x="213" y="245.5"/>
+        </tableViewCell>
+    </objects>
+</document>

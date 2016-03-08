@@ -1,0 +1,102 @@
+//
+//  PrefixHeader.pch
+//  Ericsson
+// 
+//  Created by xuming on 15/10/15.
+//  Copyright (c) 2015年 范传斌. All rights reserved.
+//
+
+#ifndef Ericsson_PrefixHeader_pch
+#define Ericsson_PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import "SoapUtility.h"
+#import "SoapService.h"
+
+#import "MJExtension.h"
+#import "MJRefresh.h"
+#import "MBProgressHUD+MJ.h"
+
+
+#import "NSString+Extension.h" // 计算字符串的size
+
+#import "SynchronizeDataManager.h"
+#import "SqliteManager.h"
+#import "FMDatabase.h"
+#import "FDAlertView.h"
+#import "UIView+Extension.h"
+#import "UIView+Toast.h"
+#import "BaseViewController.h"
+#import "MyLKDBHelper.h"
+#import "NSString+Extension.h"
+
+#define KIphoneWidth     [ UIScreen mainScreen ].bounds.size.width
+#define KIphoneHeight     [ UIScreen mainScreen ].bounds.size.height
+#define KBaseBlue   [UIColor colorWithRed:61.0/255.0 green:132.0/255.0 blue:197.0/255.0 alpha:1.0]
+#define KBaseGray   [UIColor colorWithRed:244/255.0 green:244/255.0 blue:244/255.0 alpha:1.0];
+#define KBackgroundBlue  [UIColor colorWithRed:56/255.0 green:102/255.0 blue:200/255.0 alpha:1.0];
+#define KCellHeight 50
+#define KUserId  [[NSUserDefaults standardUserDefaults] objectForKey:@"username"]
+#define KSessionId  [[NSUserDefaults standardUserDefaults] objectForKey:@"sessionId"]
+
+#define KHudIsRequestMessage @"正在请求数据……"
+#define KHudResponse1 @"服务器返回状态-1"
+#define KHudResponse2 @"会话超时，请重新登录"
+#define KHudErrorMessage @"请求发生错误"
+
+#define KHudIsUpdataMessage @"正在提交数据……"
+#define KHudSuccessMessage @"服务器返回成功"
+
+#define KKProperty @"property"
+
+
+#define KBaiduTuisongNotification @"BaiduTuisongNotification"
+//阶段反馈参数        
+#define SRV_CONNECTED 2
+#define SRV_CONNECT_SUC 1
+#define SRV_CONNECT_FAIL 0
+
+
+//正式版本socket端口号
+//#define ASYNCHOST_IP @"47.89.36.68"
+//#define ASYNCHOST_PORT 7880
+
+//测试版本socket端口号
+#define ASYNCHOST_IP @"121.28.82.70"
+#define ASYNCHOST_PORT 7979
+//设置
+#define KGpsFrequency @"GpsFrequency"
+#define KDefaultGpsFrequency    [NSNumber numberWithInteger:120]//默认gps上传频率
+
+
+//新版本说明
+#define newVersionInstruction [NSString stringWithFormat:@"当前版本号:%@\n新特性:\n公告查询功能,采用模糊搜索,去除了查询结果为空的情况\n公告发布公告后,可以直接返回到公告列表\n页面更加的扁平化,更加的便捷\n新增了百度推送的功能\n新增了告警提醒功能\n修复了一些闪退的bug",myVersion]
+
+//二维码下载地址
+//#define downurl @"http://fir.im/FSM"
+#define downurl @"http://fir.im/FSMTest"
+
+//数据库版本更新修改
+#define DBVERSION 1
+
+//百度云APIKEY
+#define YUNAPIKEY @"OSAdsMw3B6eqIDZA8eaKeDSI"
+
+//#define YUNAPIKEY @"MNhvCT0MdCTsp1ww4Ktv65IG"
+
+//QQ APPKEY APPID
+#define QQAPPKEY @"wwgnbbAL4LDVHeWv"
+#define QQAPPID @"1105152420"
+
+//Wechat APPKEY APPID
+#define WECHATAPPSECRET @"b886d0cc263f58ba7217f5501d9539f6"
+#define WECHATAPPID @"wxd27e5cbc44a18c11"
+
+//友盟APPKEY
+#define UMAPPKEY @"562f2fe9e0f55a372b0037fe"
+//测试数据库
+#define DBPATH [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"db/LKDB.db"]
+
+#define TestdbPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"Ailixin.db"]
+#endif

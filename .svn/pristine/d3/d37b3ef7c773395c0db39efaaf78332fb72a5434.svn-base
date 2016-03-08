@@ -1,0 +1,22 @@
+//
+//  laterReasonViewController.h
+//  Ericsson
+//
+//  Created by Slark on 15/12/30.
+//  Copyright © 2015年 范传斌. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface laterReasonViewController : BaseViewController
+- (IBAction)chooseClick:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *button;
+@property (weak, nonatomic) IBOutlet UIButton *ffbutton;
+
+@property (weak, nonatomic) IBOutlet UITextField *resonTypeTextField;
+
+@property (weak, nonatomic) IBOutlet UITextView *wordTextField;
+@property (weak, nonatomic) IBOutlet UILabel *placeholderLabel;
+@property (nonatomic,copy)NSString * woIds;
+@property (nonatomic,copy)NSString * reasonTypeId;
+@end

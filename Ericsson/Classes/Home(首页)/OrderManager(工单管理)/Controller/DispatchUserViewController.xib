@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DispatchUserViewController">
+            <connections>
+                <outlet property="tableView" destination="PcM-f0-gcB" id="nXL-4z-chX"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="二派受理人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wgq-6B-5Go">
+                    <rect key="frame" x="20" y="30" width="280" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="VU9-qp-ufh"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zwc-iK-hvI">
+                    <rect key="frame" x="20" y="70" width="280" height="1"/>
+                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="GNy-z8-xLB"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NBx-ui-Caa">
+                    <rect key="frame" x="0.0" y="528" width="155" height="40"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="IjH-DL-tI4"/>
+                    </constraints>
+                    <state key="normal" title="取消"/>
+                    <connections>
+                        <action selector="CancelClick:" destination="-1" eventType="touchUpInside" id="ifH-BV-dBF"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NsF-Vl-DeW">
+                    <rect key="frame" x="165" y="528" width="155" height="40"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="提交"/>
+                    <connections>
+                        <action selector="ChooseCommit:" destination="-1" eventType="touchUpInside" id="h2k-jM-4QT"/>
+                    </connections>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PcM-f0-gcB">
+                    <rect key="frame" x="20" y="91" width="280" height="417"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="NBx-ui-Caa" secondAttribute="bottom" id="1U6-Uc-RGI"/>
+                <constraint firstItem="PcM-f0-gcB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="FAs-9n-yGc"/>
+                <constraint firstItem="zwc-iK-hvI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="JBf-LD-DtJ"/>
+                <constraint firstItem="NBx-ui-Caa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Kxg-Bq-hGc"/>
+                <constraint firstItem="NsF-Vl-DeW" firstAttribute="height" secondItem="NBx-ui-Caa" secondAttribute="height" id="M52-DI-SRB"/>
+                <constraint firstItem="zwc-iK-hvI" firstAttribute="top" secondItem="Wgq-6B-5Go" secondAttribute="bottom" id="PdX-L2-7gt"/>
+                <constraint firstItem="PcM-f0-gcB" firstAttribute="top" secondItem="zwc-iK-hvI" secondAttribute="bottom" constant="20" id="Sah-A9-SgI"/>
+                <constraint firstItem="NsF-Vl-DeW" firstAttribute="centerY" secondItem="NBx-ui-Caa" secondAttribute="centerY" id="WMA-ke-j29"/>
+                <constraint firstAttribute="trailing" secondItem="Wgq-6B-5Go" secondAttribute="trailing" constant="20" id="XF2-tI-8nc"/>
+                <constraint firstAttribute="trailing" secondItem="zwc-iK-hvI" secondAttribute="trailing" constant="20" id="cPc-5S-iqX"/>
+                <constraint firstItem="Wgq-6B-5Go" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="dmf-3c-neP"/>
+                <constraint firstItem="NsF-Vl-DeW" firstAttribute="leading" secondItem="NBx-ui-Caa" secondAttribute="trailing" constant="10" id="gVU-Cx-WKr"/>
+                <constraint firstItem="NsF-Vl-DeW" firstAttribute="top" secondItem="PcM-f0-gcB" secondAttribute="bottom" constant="20" id="k8S-pY-UVj"/>
+                <constraint firstItem="NsF-Vl-DeW" firstAttribute="width" secondItem="NBx-ui-Caa" secondAttribute="width" id="mIC-Wp-M8j"/>
+                <constraint firstItem="Wgq-6B-5Go" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="nmD-03-WII"/>
+                <constraint firstAttribute="bottom" secondItem="NsF-Vl-DeW" secondAttribute="bottom" id="nrX-0r-Z3f"/>
+                <constraint firstAttribute="trailing" secondItem="PcM-f0-gcB" secondAttribute="trailing" constant="20" id="r7A-LA-iMy"/>
+                <constraint firstAttribute="trailing" secondItem="NsF-Vl-DeW" secondAttribute="trailing" id="raG-yR-07Y"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <point key="canvasLocation" x="190" y="354"/>
+        </view>
+    </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

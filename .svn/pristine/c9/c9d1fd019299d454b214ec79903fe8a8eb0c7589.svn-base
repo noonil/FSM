@@ -1,0 +1,90 @@
+//
+//  AnnounceContentFrame.m
+//  Ericsson
+//
+//  Created by Min on 15/12/22.
+//  Copyright © 2015年 范传斌. All rights reserved.
+//
+
+#import "AnnounceContentFrame.h"
+#import "AnnounceContentModel.h"
+
+
+
+@implementation AnnounceContentFrame
+
+- (void)setContentModel:(AnnounceContentModel *)contentModel
+{
+    _contentModel = contentModel;
+    
+    
+    // cell 的宽度
+    CGFloat cellW = [UIScreen mainScreen].bounds.size.width - 10;
+    
+    
+    
+    // 顶部的灰色视图
+    CGFloat grayViewXY = 0;
+    CGFloat grayViewW = cellW;
+    CGFloat grayViewH = 10;
+    self.grayViewF = CGRectMake(grayViewXY, grayViewXY, grayViewW, grayViewH);
+    
+  
+    
+    // 标题label
+    CGFloat titleXY = 0;
+    CGFloat titleMaxW = cellW - 2*AnnounceCellMargin;
+    CGSize titleSize = [contentModel.title sizeWithFont:AnnounceTitleFont maxW:titleMaxW];
+    if (titleSize.height == 0) titleSize.height = 23.8;
+    self.titleLabelF = (CGRect){{titleXY,titleXY},titleSize};
+    
+    
+    // 内容
+    CGFloat contentX = 0;
+    CGFloat contentY = titleSize.height;
+    CGSize contentSize = [contentModel.content sizeWithFont:AnnoucneContentFont];
+    self.contentLabelF = (CGRect){{contentX,contentY},{titleMaxW,contentSize.height}};
+    
+    
+    
+    // 时间label
+    CGSize timeSize = [contentModel.time sizeWithFont:AnnounceOthersFont];
+    CGFloat timeX = cellW - timeSize.width - AnnounceCellMargin - AnnouceothersBoarder;
+    CGFloat timeY = contentSize.height + contentY;;
+    self.timeLabelF = (CGRect){{timeX,timeY},timeSize};
+    
+    // 名字label
+    CGFloat nameX = 0;
+    CGFloat nameY = contentSize.height + contentY;
+    if (nameY <=45.3) { // 为了防止我的草稿中的没有数据，我们自己设置高度
+        nameY = 45.3;
+    }
+    CGSize nameSize = [contentModel.name sizeWithFont:AnnounceOthersFont];
+    self.nameLabelF = (CGRect){{nameX,nameY},nameSize};
+    
+    // 部门名字label
+    CGFloat departNameX     = nameSize.width;
+    CGFloat departNameY     = nameY;
+//    NSString * departName   = [NSString stringWithFormat:@"S%@S",contentModel.departName];
+
+//    CGSize departNameSize   = [departName sizeWithFont:AnnounceOthersFont];
+    CGFloat departNameW     = cellW - timeSize.width - nameSize.width;
+    CGFloat departNameH     = nameSize.height;
+    self.departNameLabelF   = (CGRect){{departNameX,departNameY},{departNameW,departNameH}};
+    
+    
+    // cell的内容View
+    CGFloat contentVX = 20;
+    CGFloat contentVY = grayViewH;
+    CGFloat contentVW = cellW - 20;
+    CGFloat contentVH = timeY + timeSize.height;
+    self.contentVF = CGRectMake(contentVX, contentVY, contentVW, contentVH);
+    
+    CGFloat cellHeight = contentVY + contentVH + 5;
+    if (cellHeight <= 79) {
+        cellHeight = 79;
+    }
+    self.cellHeight = cellHeight;
+}
+
+@end

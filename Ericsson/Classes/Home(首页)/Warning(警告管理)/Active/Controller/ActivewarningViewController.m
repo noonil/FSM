@@ -1,0 +1,45 @@
+//
+//  ActivewarningViewController.m
+//  Ericsson
+//
+//  Created by 陶山强 on 15/10/14.
+//  Copyright © 2015年 范传斌. All rights reserved.
+//
+
+#import "ActivewarningViewController.h"
+#import "AvtiveTableViewController.h"
+@interface ActivewarningViewController ()<UITextFieldDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *name;
+@property (weak, nonatomic) IBOutlet UITextField *title1;
+- (IBAction)search:(id)sender;
+
+
+@end
+
+@implementation ActivewarningViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"查询活动告警";
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+//当用户按下return键或者按回车键，keyboard消失
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+#pragma mark --查询
+- (IBAction)search:(id)sender {
+    AvtiveTableViewController *atVC=[[AvtiveTableViewController alloc]initWithNibName:@"AvtiveTableViewController" bundle:nil];
+    atVC.name =_name.text;
+    atVC.alertTitle = _title1.text;
+    
+    [self.navigationController pushViewController:atVC animated:YES];
+}
+@end

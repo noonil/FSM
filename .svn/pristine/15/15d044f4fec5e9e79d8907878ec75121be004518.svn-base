@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="7Fg-ae-KyG" customClass="AddAnnounceSectionView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fhe-dv-ntb">
+                    <rect key="frame" x="86" y="12" width="36" height="36"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="36" id="Jrf-eV-me6"/>
+                        <constraint firstAttribute="height" constant="36" id="MrQ-0C-Bue"/>
+                    </constraints>
+                    <state key="normal" image="unchoose_spare_bt"/>
+                    <state key="selected" image="choose_spare_bt"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labelsssss" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L0M-Xc-4dQ">
+                    <rect key="frame" x="122" y="12" width="100" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="6x7-Zf-4Gg"/>
+                        <constraint firstAttribute="height" constant="36" id="mGB-fA-O0M"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.12941176470588237" green="0.27058823529411763" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C7Y-nU-TbP">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                    <connections>
+                        <action selector="sectionViewEvent:" destination="7Fg-ae-KyG" eventType="touchUpInside" id="aYc-Ql-AdS"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tRC-Kv-VIg">
+                    <rect key="frame" x="40" y="12" width="36" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="36" id="5O2-q6-uLa"/>
+                        <constraint firstAttribute="width" constant="36" id="tkb-Ir-9qF"/>
+                    </constraints>
+                    <state key="normal" title="sss" image="jia"/>
+                    <state key="selected" image="jian_xxxx"/>
+                    <connections>
+                        <action selector="foldSectionBtn:" destination="7Fg-ae-KyG" eventType="touchUpInside" id="wwW-FK-5cO"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="L0M-Xc-4dQ" firstAttribute="centerY" secondItem="7Fg-ae-KyG" secondAttribute="centerY" id="2Cz-0q-o7X"/>
+                <constraint firstItem="L0M-Xc-4dQ" firstAttribute="leading" secondItem="Fhe-dv-ntb" secondAttribute="trailing" id="4u8-lV-drS"/>
+                <constraint firstItem="Fhe-dv-ntb" firstAttribute="centerY" secondItem="7Fg-ae-KyG" secondAttribute="centerY" id="FkE-Dp-tHo"/>
+                <constraint firstAttribute="trailing" secondItem="C7Y-nU-TbP" secondAttribute="trailing" id="X5z-U7-ZlZ"/>
+                <constraint firstItem="C7Y-nU-TbP" firstAttribute="top" secondItem="7Fg-ae-KyG" secondAttribute="top" id="abE-8Z-NyK"/>
+                <constraint firstItem="C7Y-nU-TbP" firstAttribute="leading" secondItem="7Fg-ae-KyG" secondAttribute="leading" id="c6k-lA-5BJ"/>
+                <constraint firstItem="Fhe-dv-ntb" firstAttribute="leading" secondItem="tRC-Kv-VIg" secondAttribute="trailing" constant="10" id="hST-mx-d64"/>
+                <constraint firstItem="tRC-Kv-VIg" firstAttribute="centerY" secondItem="7Fg-ae-KyG" secondAttribute="centerY" id="ivN-ut-HJ5"/>
+                <constraint firstItem="tRC-Kv-VIg" firstAttribute="leading" secondItem="7Fg-ae-KyG" secondAttribute="leading" constant="40" id="sNP-ox-RGu"/>
+                <constraint firstAttribute="bottom" secondItem="C7Y-nU-TbP" secondAttribute="bottom" id="yPg-cY-4zg"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="isFoldBtn" destination="tRC-Kv-VIg" id="esa-6t-Eac"/>
+                <outlet property="isSelectedBtn" destination="Fhe-dv-ntb" id="UFt-2g-s49"/>
+                <outlet property="orgNameLabel" destination="L0M-Xc-4dQ" id="m8G-Iy-tKt"/>
+            </connections>
+            <point key="canvasLocation" x="733" y="-2"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="choose_spare_bt" width="24" height="24"/>
+        <image name="jia" width="36" height="36"/>
+        <image name="jian_xxxx" width="36" height="36"/>
+        <image name="unchoose_spare_bt" width="24" height="24"/>
+    </resources>
+</document>

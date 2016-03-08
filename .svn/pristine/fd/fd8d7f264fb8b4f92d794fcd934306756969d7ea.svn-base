@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LogicViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小区逻辑信道不可用地市分布统计图" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ya7-LI-BAu">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="2ML-Ln-4Sg"/>
+                        <constraint firstAttribute="width" constant="600" id="c0W-sd-S79"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="告警数量" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bg9-im-MES">
+                    <rect key="frame" x="0.0" y="560" width="600" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="600" id="4Sj-d6-Ol0"/>
+                        <constraint firstAttribute="height" constant="40" id="TXL-6R-gfQ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="bg9-im-MES" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="0VG-kY-Ymn"/>
+                <constraint firstAttribute="bottom" secondItem="bg9-im-MES" secondAttribute="bottom" id="B3B-cy-K0G"/>
+                <constraint firstItem="Ya7-LI-BAu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="GbT-Jt-waQ"/>
+                <constraint firstItem="Ya7-LI-BAu" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Mjq-0Z-lN1"/>
+                <constraint firstAttribute="trailing" secondItem="Ya7-LI-BAu" secondAttribute="trailing" id="PcD-dv-4q3"/>
+                <constraint firstAttribute="trailing" secondItem="bg9-im-MES" secondAttribute="trailing" id="dLG-wG-ILz"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

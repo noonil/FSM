@@ -1,0 +1,320 @@
+//
+//  AddingAnnViewController.m
+//  Ericsson
+//
+//  Created by Min on 15/12/23.
+//  Copyright © 2015年 范传斌. All rights reserved.
+//
+
+#import "AddingAnnViewController.h"
+#import "AddAnnoucneTitleVC.h"
+#import "AddAnnounceDepartmentVC.h"
+#import "AnnounceContentModel.h"
+#import "AllAnnounceViewController.h"
+#import "RMDateSelectionViewController.h"
+@interface AddingAnnViewController () <addAnnoucneTitleVCDelegate,AddAnnounceDepartmentVCDelegate>
+{
+    BOOL btnFlag; // 判断点击的是标题按钮还是内容按钮 YES为标题按钮/NO为内容按钮
+}
+
+/** 标题Label */
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+/** 内容Label */
+@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+/** 部门Label */
+@property (weak, nonatomic) IBOutlet UILabel *departLabel;
+/** 有效时间 */
+@property (weak, nonatomic) IBOutlet UITextField *timeLabel;
+
+
+/** 是否包含部门 */
+@property (nonatomic,assign) BOOL isContainDepart;
+/** 覆盖view*/
+@property (nonatomic,strong) UIView * coverView;
+/** 时间选择器 */
+@property (nonatomic,strong) UIDatePicker * datePicker;
+
+@end
+
+
+@implementation AddingAnnViewController
+
+#pragma mark - 系统方法
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.title = @"添加公告";
+    
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (self.annModel) {
+        self.titleLabel.text = _annModel.title;
+        self.contentLabel.text = _annModel.content;
+        self.annModel = nil;
+    }
+    
+}
+- (void)setupTime:(UITextField*)textField
+{
+    RMAction *selectAction = [RMAction actionWithTitle:@"确认" style:RMActionStyleDone andHandler:^(RMActionController *controller) {
+        NSLog(@"Successfully selected date: %@", ((UIDatePicker *)controller.contentView).date);
+        
+        textField.text = [self stringFromDate:((UIDatePicker *)controller.contentView).date];
+    }];
+    
+    //Create cancel action
+    RMAction *cancelAction = [RMAction actionWithTitle:@"取消" style:RMActionStyleCancel andHandler:^(RMActionController *controller) {
+        NSLog(@"Date selection was canceled");
+    }];
+    
+    //Create date selection view controller
+    RMDateSelectionViewController *dateSelectionController = [RMDateSelectionViewController actionControllerWithStyle:RMActionControllerStyleDefault selectAction:selectAction andCancelAction:cancelAction];
+    
+    dateSelectionController.title = @"日期选择";
+    //        dateSelectionController.message = @"This is a test message.\nPlease choose a date and press 'Select' or 'Cancel'.";
+    
+    //Now just present the date selection controller using the standard iOS presentation method
+    [self presentViewController:dateSelectionController animated:YES completion:nil];
+}
+#pragma mark - 按钮事件
+// 标题按钮
+- (IBAction)titleBtn_TouchUpInside:(id)sender {
+    btnFlag = YES;
+    AddAnnoucneTitleVC * addTieleOrContentVC = [[AddAnnoucneTitleVC alloc]init];
+    addTieleOrContentVC.titleVC = @"标题";
+    addTieleOrContentVC.titleContent = self.titleLabel.text;
+    //委托代理
+    addTieleOrContentVC.delegate = self;
+    [self.navigationController pushViewController:addTieleOrContentVC animated:YES];
+}
+// 内容按钮
+- (IBAction)contentBtn_TouchUpInside:(id)sender {
+    btnFlag = NO;
+    AddAnnoucneTitleVC * addTieleOrContentVC = [[AddAnnoucneTitleVC alloc]init];
+    addTieleOrContentVC.titleContent = self.contentLabel.text;
+    addTieleOrContentVC.titleVC = @"内容";
+    //委托代理
+    addTieleOrContentVC.delegate = self;
+    [self.navigationController pushViewController:addTieleOrContentVC animated:YES];
+}
+// 组织按钮
+- (IBAction)organizeTouchUpInside:(id)sender {
+    AddAnnounceDepartmentVC * departmentVC = [[AddAnnounceDepartmentVC alloc]init];
+    departmentVC.delegate = self;
+    [self.navigationController pushViewController:departmentVC animated:YES];
+}
+// 是否包含部门按钮
+- (IBAction)containChildOrg_TouchUpInside:(UIButton*)sender {
+    sender.selected = !sender.selected;
+    self.isContainDepart = sender.selected;
+}
+// 存为草稿
+- (IBAction)saveDraftBtn_TouchUpInside:(id)sender {
+    /*
+     “retCode”:”x” ;     0:请求成功  -1:请求失败  -2:回话sessionId 失效
+     “announceList”:[{
+     "hasRead": true,    是否已读过 true :读过  false:未读
+     "name": "刘伟鹏",    名字
+     "departName": "栾城县小组",   部门名字
+     "content": "哦哦娶了",    内容
+     "time": "2015-10-10 17:05:01",   时间
+     "annouceId": "1305",    公告id
+     "title": "唐家三少"     标题
+     }]
+     */
+    AnnounceContentModel * draft = [[AnnounceContentModel alloc]init];
+    
+    if (self.indexrow > 0) {
+        NSMutableArray * allDraftArr = [AnnounceContentModel searchWithWhere:nil orderBy:nil offset:0 count:100];
+        
+        draft = allDraftArr[self.indexrow - 1];
+        draft.title = self.titleLabel.text;
+        draft.hasRead = nil;
+        draft.name = @"222222";
+        draft.annouceId = nil;
+        draft.content = self.contentLabel.text;
+        draft.departName = @"222222";
+        draft.time = [self stringFromDate:[NSDate date]];
+    }else {
+        draft.title = self.titleLabel.text;
+        draft.hasRead = nil;
+        draft.name = @"222222";
+        draft.annouceId = nil;
+        draft.content = self.contentLabel.text;
+        draft.departName = @"222222";
+        draft.time = [self stringFromDate:[NSDate date]];
+    }
+    [draft saveToDB];
+    
+    
+    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"已存为草稿,请在“我的草稿”中查看" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    [alert show];
+    
+    // 重置label中的值 为空
+    [self setUpLabelTextToNull];
+    
+}
+/**
+ requestModel  :  FSMAnnounce模块名
+ requestMethod  : FSMQueryAnnounce方法名
+ 
+ sessionId     :   会话id
+ requestData   :{
+ “userId”:””,   用户id
+ “title”:””,    标题
+ “content”:””,  内容
+ “organizeId”:””  组织id
+ “organizeName”:””, 组织名
+ “containChildOrg”:””,  是否包含子组织,true:包含 false : 不包含
+ “attachFileName”:””,  附件名(暂时不传附件,直接给null)
+ “availableTime”:””    有效时间  yyyy-MM-dd
+ }
+ */
+// 发布按钮
+- (IBAction)submitBtn_TouchUpInside:(id)sender {
+    
+//    判断是否有未填的项目
+    if ([self.titleLabel.text isEqualToString:@""] ||
+        [self.contentLabel.text isEqualToString:@""] ||
+        [self.departLabel.text isEqualToString:@""] ||
+        [self.timeLabel.text isEqualToString:@""]) {
+        
+        [self.view makeToast:@"内容添加不完整，无法发布"];
+        return;
+    }
+    // 请求数据
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [defaults objectForKey:@"username"];
+    NSString *sessionId = [defaults objectForKey:@"sessionId"];
+
+    NSDictionary *params = @{
+                             @"userId":userId,
+                             @"title":self.titleLabel.text?self.titleLabel.text:@"",
+                             @"content":self.contentLabel.text?self.contentLabel.text:@"",
+                             @"organizeId":@(1),
+                             @"organizeName":self.departLabel.text?self.departLabel.text:@"",
+                             @"containChildOrg":_isContainDepart?@"true":@"false",
+                             @"attachFileName":@"",
+                             @"availableTime":_timeLabel.text?_timeLabel.text:@""
+                             };
+    
+    NSString * sopeStr = [[SoapUtility shareInstance]BuildSoapWithModelName:@"FSMAnnounce" methodName:@"FSMPostAnnounce" sessonId:sessionId requestData:params];
+    
+    [MBProgressHUD showMessage:@"正在发布数据,请稍后"];
+    
+    // 异步请求
+    [[SoapService shareInstance] PostAsync:sopeStr Success:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUD];
+        if ([dic[@"retCode"] isEqual:@0]) {
+            
+            // 发布成功 --> 跳转到 我的公告列表
+            [self setUpLabelTextToNull];
+            
+            if (self.indexrow > 0) {// 如果是从 草稿编辑的 删除草稿中数据
+            [self deleteDraftData];
+            }
+            
+            NSArray *navArray = self.navigationController.viewControllers;
+            
+            NSMutableArray * newNavArray = [[NSMutableArray alloc]init];
+
+            for (int i = 0; i < 2; i++) {
+                [newNavArray addObject:navArray[i]];
+            }
+            
+            
+            AllAnnounceViewController * vc = [[AllAnnounceViewController alloc]init];
+            vc.navTitle = @"全部公告";
+            vc.annoucneType = 0;
+            [newNavArray addObject:vc];
+            [self.navigationController setViewControllers:newNavArray];
+            
+            
+        }else if([dic[@"retCode"] isEqual:@(-1)]) {
+            
+            [self.navigationController.view makeToast:@"请求失败"];
+        }else if ([dic[@"retCode"] isEqual:@(-2)]) {
+            UIViewController *rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
+            [UIApplication sharedApplication].keyWindow.rootViewController = rootViewController;
+            [self.navigationController.view makeToast:@"会话超时，请重新登录"];
+        }
+    } falure:^(NSError *response) {
+        NSLog(@"response : %@",response);
+        [MBProgressHUD hideHUD];
+        [self.navigationController.view makeToast:@"请求发生错误"];
+        
+    }];
+}
+// 发布成功，删除草稿中编辑的数据
+- (void)deleteDraftData
+{
+    AnnounceContentModel * draft = [[AnnounceContentModel alloc]init];
+    
+    if (self.indexrow > 0) {
+        NSMutableArray * allDraftArr = [AnnounceContentModel searchWithWhere:nil orderBy:nil offset:0 count:100];
+        
+        draft = allDraftArr[self.indexrow - 1];
+        [AnnounceContentModel deleteToDB:draft];
+    }
+}
+// 将Label的text置为空
+- (void)setUpLabelTextToNull
+{
+    // 重置label中的值 为空
+    self.titleLabel.text    = @"";
+    self.contentLabel.text  = @"";
+    self.departLabel.text   = @"";
+    self.timeLabel.text     = @"";
+}
+// 有效时间
+- (IBAction)timeSelectedBtn:(id)sender {
+    [self setupTime:self.timeLabel];
+}
+
+
+#pragma mark - Delegate
+- (void)submitBtnSelected:(NSString *)content
+{
+    if (btnFlag) { // YES 为标题按钮
+        self.titleLabel.text = content;
+    }else { // NO 为内容按钮
+        self.contentLabel.text = content;
+    }
+}
+
+- (void)submitDepartmentSelected:(NSString *)depart
+{
+    self.departLabel.text = depart;
+}
+
+#pragma mark - others
+// datePicker上的时间 转换成  NSString格式
+- (NSString *)stringFromDate:(NSDate *)date
+{
+    NSDateFormatter * formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSString * str = [formatter stringFromDate:date];
+    return str;
+}
+
+// 把NSString 转换成 NSDate
+- (NSDate *)dateFromString:(NSString*)dateString
+{
+    NSDateFormatter * formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate * date = [formatter dateFromString:dateString];
+    return date;
+}
+@end
+
+
+// 删除之前的
+//    NSString * sqlStr = [NSString stringWithFormat:@"select *from @t where rowid = '%ld'",self.flag+ 1];
+//    NSMutableArray * announeceArray = [[MyLKDBHelper getUsingLKDBHelper]searchWithSQL:sqlStr toClass:[AnnounceContentModel class]];
+//    for (AnnounceContentModel * model in announeceArray) {
+//        [AnnounceContentModel deleteToDB:model];
+//    }
+//

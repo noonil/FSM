@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Pny-oc-3v3">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="alo-nj-BqT">
+                    <rect key="frame" x="95" y="44" width="55" height="25"/>
+                    <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" image="choose_file_bt">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="choose_file_bt"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7em-hQ-9QP">
+                    <rect key="frame" x="170" y="44" width="55" height="25"/>
+                    <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" image="choose_audio_bt">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="choose_audio_bt"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hu5-6z-xwI">
+                    <rect key="frame" x="245" y="44" width="55" height="25"/>
+                    <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" image="choose_video_bt">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="choose_video_bt"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c6R-GG-bfK">
+                    <rect key="frame" x="20" y="44" width="55" height="25"/>
+                    <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" image="choose_picture_bt">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="choose_picture_bt"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上传附件" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ty9-5v-2rh">
+                    <rect key="frame" x="0.0" y="6" width="68" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="63P-F0-aP4"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjV-MW-6mh">
+                    <rect key="frame" x="0.0" y="33" width="320" height="1"/>
+                    <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="gc3-Ld-QXK"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="wjV-MW-6mh" secondAttribute="trailing" id="4xb-Uj-YbP"/>
+                <constraint firstItem="hu5-6z-xwI" firstAttribute="width" secondItem="7em-hQ-9QP" secondAttribute="width" id="5i2-vy-oWB"/>
+                <constraint firstItem="wjV-MW-6mh" firstAttribute="top" secondItem="ty9-5v-2rh" secondAttribute="bottom" constant="6" id="6IV-rI-5NQ"/>
+                <constraint firstItem="hu5-6z-xwI" firstAttribute="height" secondItem="7em-hQ-9QP" secondAttribute="height" id="7YM-y5-Ob7"/>
+                <constraint firstItem="hu5-6z-xwI" firstAttribute="width" secondItem="c6R-GG-bfK" secondAttribute="width" id="Bb9-NI-yKR"/>
+                <constraint firstItem="c6R-GG-bfK" firstAttribute="top" secondItem="wjV-MW-6mh" secondAttribute="bottom" constant="10" id="HXe-MC-8ai"/>
+                <constraint firstItem="hu5-6z-xwI" firstAttribute="height" secondItem="c6R-GG-bfK" secondAttribute="height" id="I61-OC-Hqb"/>
+                <constraint firstAttribute="trailing" secondItem="hu5-6z-xwI" secondAttribute="trailing" constant="20" id="K16-jw-clm"/>
+                <constraint firstItem="hu5-6z-xwI" firstAttribute="top" secondItem="c6R-GG-bfK" secondAttribute="top" id="Obs-ZC-4ZM"/>
+                <constraint firstItem="alo-nj-BqT" firstAttribute="leading" secondItem="c6R-GG-bfK" secondAttribute="trailing" constant="20" id="RBG-dn-dfU"/>
+                <constraint firstItem="hu5-6z-xwI" firstAttribute="top" secondItem="alo-nj-BqT" secondAttribute="top" id="TnE-sJ-rZZ"/>
+                <constraint firstItem="hu5-6z-xwI" firstAttribute="width" secondItem="alo-nj-BqT" secondAttribute="width" id="UkL-hx-jLe"/>
+                <constraint firstItem="wjV-MW-6mh" firstAttribute="leading" secondItem="Pny-oc-3v3" secondAttribute="leading" id="VIM-p0-G5l"/>
+                <constraint firstItem="ty9-5v-2rh" firstAttribute="leading" secondItem="Pny-oc-3v3" secondAttribute="leading" id="ZDX-b8-OZF"/>
+                <constraint firstItem="7em-hQ-9QP" firstAttribute="leading" secondItem="alo-nj-BqT" secondAttribute="trailing" constant="20" id="dCh-IM-eG6"/>
+                <constraint firstAttribute="bottom" secondItem="c6R-GG-bfK" secondAttribute="bottom" constant="11" id="g4Z-Xk-N2B"/>
+                <constraint firstItem="c6R-GG-bfK" firstAttribute="leading" secondItem="Pny-oc-3v3" secondAttribute="leading" constant="20" id="g86-pB-yZN"/>
+                <constraint firstItem="hu5-6z-xwI" firstAttribute="height" secondItem="alo-nj-BqT" secondAttribute="height" id="gk6-os-oe6"/>
+                <constraint firstItem="hu5-6z-xwI" firstAttribute="top" secondItem="7em-hQ-9QP" secondAttribute="top" id="gsq-gc-2vg"/>
+                <constraint firstItem="hu5-6z-xwI" firstAttribute="leading" secondItem="7em-hQ-9QP" secondAttribute="trailing" constant="20" id="reV-Ln-oCQ"/>
+                <constraint firstItem="ty9-5v-2rh" firstAttribute="top" secondItem="Pny-oc-3v3" secondAttribute="top" constant="6" id="zUb-w9-sS2"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="239" y="137.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="choose_audio_bt" width="25" height="25"/>
+        <image name="choose_file_bt" width="18" height="24"/>
+        <image name="choose_picture_bt" width="30" height="22"/>
+        <image name="choose_video_bt" width="28" height="22"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

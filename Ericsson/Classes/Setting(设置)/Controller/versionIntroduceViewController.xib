@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="versionIntroduceViewController">
+            <connections>
+                <outlet property="textfiled" destination="58M-Jf-oiS" id="OSN-IG-yB9"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5yc-nC-Xhu">
+                    <rect key="frame" x="0.0" y="430" width="320" height="50"/>
+                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="do5-s4-Ie1"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                    <state key="normal" title="确定" backgroundImage="searchbg.png">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="sureBtn:" destination="-1" eventType="touchUpInside" id="5dV-Zf-G5U"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="     版本说明" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a0j-hG-VUv">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="42"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="42" id="hNi-Ft-for"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="58M-Jf-oiS">
+                    <rect key="frame" x="30" y="42" width="290" height="380"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="a0j-hG-VUv" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Ce8-zn-uyQ"/>
+                <constraint firstItem="58M-Jf-oiS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="Czj-AG-4AF"/>
+                <constraint firstItem="a0j-hG-VUv" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="TiF-m6-fZ0"/>
+                <constraint firstItem="58M-Jf-oiS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="42" id="VlL-bL-xwc"/>
+                <constraint firstAttribute="trailing" secondItem="5yc-nC-Xhu" secondAttribute="trailing" id="bfe-oF-wVW"/>
+                <constraint firstAttribute="trailing" secondItem="58M-Jf-oiS" secondAttribute="trailing" id="cb6-AA-ZYa"/>
+                <constraint firstItem="5yc-nC-Xhu" firstAttribute="top" secondItem="58M-Jf-oiS" secondAttribute="bottom" constant="8" id="kgb-mI-aIP"/>
+                <constraint firstAttribute="trailing" secondItem="a0j-hG-VUv" secondAttribute="trailing" id="njb-zT-tp6"/>
+                <constraint firstItem="5yc-nC-Xhu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="u6L-pQ-hqz"/>
+                <constraint firstAttribute="bottom" secondItem="5yc-nC-Xhu" secondAttribute="bottom" id="y0P-Ed-Z6U"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="124" y="196"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="searchbg.png" width="278" height="84"/>
+    </resources>
+</document>

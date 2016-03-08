@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>icon</key>
+		<string>search_icon</string>
+		<key>name</key>
+		<string>修改密码</string>
+	</dict>
+	<dict>
+		<key>icon</key>
+		<string>spare_return</string>
+		<key>name</key>
+		<string>安全日志</string>
+	</dict>
+	<dict>
+		<key>icon</key>
+		<string>spare_return</string>
+		<key>name</key>
+		<string>附件上传设置</string>
+	</dict>
+	<dict>
+		<key>icon</key>
+		<string>spare_return</string>
+		<key>name</key>
+		<string>GPS上传频率设置</string>
+	</dict>
+	<dict>
+		<key>icon</key>
+		<string>spare_return</string>
+		<key>name</key>
+		<string>分享应用</string>
+	</dict>
+	<dict>
+		<key>icon</key>
+		<string>spare_return</string>
+		<key>name</key>
+		<string>检测更新</string>
+	</dict>
+	<dict>
+		<key>icon</key>
+		<string>spare_return</string>
+		<key>name</key>
+		<string>版本说明</string>
+	</dict>
+	<dict>
+		<key>icon</key>
+		<string>spare_return</string>
+		<key>name</key>
+		<string>注销</string>
+	</dict>
+</array>
+</plist>

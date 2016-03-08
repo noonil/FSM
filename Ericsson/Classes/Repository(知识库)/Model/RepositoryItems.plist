@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>Icon</key>
+		<string>search_icon</string>
+		<key>Name</key>
+		<string>技术手册</string>
+	</dict>
+	<dict>
+		<key>Icon</key>
+		<string>search_icon</string>
+		<key>Name</key>
+		<string>操作规程</string>
+	</dict>
+	<dict>
+		<key>Icon</key>
+		<string>search_icon</string>
+		<key>Name</key>
+		<string>排障历史</string>
+	</dict>
+</array>
+</plist>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyApplyListViewController">
+            <connections>
+                <outlet property="headView" destination="2BX-Sk-gGK" id="j6t-fk-6v3"/>
+                <outlet property="tableView" destination="OwR-g6-Che" id="Nqh-1H-NQV"/>
+                <outlet property="threeLabelView" destination="N41-wN-XCv" id="3E4-GR-KE7"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="8cb-vn-LKI"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2BX-Sk-gGK" customClass="ImgLabelHeadView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                    <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="E9u-UZ-SdU"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N41-wN-XCv" customClass="ThreeLabelView">
+                    <rect key="frame" x="0.0" y="50" width="320" height="50"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="cUf-2A-APk"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="OwR-g6-Che">
+                    <rect key="frame" x="0.0" y="100" width="320" height="468"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="PiV-JC-Xl8"/>
+                        <outlet property="delegate" destination="-1" id="9qP-vs-PBa"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="OwR-g6-Che" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="1Pk-TE-AeS"/>
+                <constraint firstItem="OwR-g6-Che" firstAttribute="top" secondItem="N41-wN-XCv" secondAttribute="bottom" id="Eos-cv-Kcw"/>
+                <constraint firstItem="N41-wN-XCv" firstAttribute="top" secondItem="2BX-Sk-gGK" secondAttribute="bottom" id="IUU-L0-aiU"/>
+                <constraint firstItem="2BX-Sk-gGK" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="PtG-a4-xeo"/>
+                <constraint firstAttribute="bottom" secondItem="OwR-g6-Che" secondAttribute="bottom" id="Q6s-0f-Sv1"/>
+                <constraint firstAttribute="trailing" secondItem="2BX-Sk-gGK" secondAttribute="trailing" id="QXP-Sq-bZ2"/>
+                <constraint firstAttribute="trailing" secondItem="N41-wN-XCv" secondAttribute="trailing" id="S1R-uv-EmW"/>
+                <constraint firstItem="N41-wN-XCv" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Y1B-pf-Imt"/>
+                <constraint firstItem="2BX-Sk-gGK" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="nbS-kv-7Es"/>
+                <constraint firstAttribute="trailing" secondItem="OwR-g6-Che" secondAttribute="trailing" id="yM9-GT-RyZ"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <point key="canvasLocation" x="393" y="278"/>
+        </view>
+    </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

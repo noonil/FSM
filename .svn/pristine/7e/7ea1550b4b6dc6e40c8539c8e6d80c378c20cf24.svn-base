@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AllAnnounceViewController">
+            <connections>
+                <outlet property="tableView" destination="ykp-5z-LaI" id="0SI-o6-JhF"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ykp-5z-LaI">
+                    <rect key="frame" x="0.0" y="0.0" width="312" height="518"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="tKa-Ct-WgB"/>
+                        <outlet property="delegate" destination="-1" id="mlI-b6-QdI"/>
+                    </connections>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ulW-vO-mQa">
+                    <rect key="frame" x="0.0" y="518" width="155" height="50"/>
+                    <color key="backgroundColor" red="0.1743750364920057" green="0.49762587558788396" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="ycf-pG-Yts"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                    <state key="normal" title="查找">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="searchBtn:" destination="-1" eventType="touchUpInside" id="HHG-AH-R0p"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eje-GU-A5I">
+                    <rect key="frame" x="165" y="518" width="155" height="50"/>
+                    <color key="backgroundColor" red="0.1743750365" green="0.49762587559999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                    <state key="normal" title="新增">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="addBtn:" destination="-1" eventType="touchUpInside" id="qAV-ET-FuB"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="ykp-5z-LaI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1AO-H9-G4T"/>
+                <constraint firstAttribute="trailing" secondItem="eje-GU-A5I" secondAttribute="trailing" id="4eZ-ru-7sE"/>
+                <constraint firstItem="eje-GU-A5I" firstAttribute="leading" secondItem="ulW-vO-mQa" secondAttribute="trailing" constant="10" id="6vL-dQ-QJl"/>
+                <constraint firstItem="eje-GU-A5I" firstAttribute="top" secondItem="ykp-5z-LaI" secondAttribute="bottom" id="7Mo-es-aIL"/>
+                <constraint firstItem="ykp-5z-LaI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9nH-O9-Hcm"/>
+                <constraint firstAttribute="bottom" secondItem="ulW-vO-mQa" secondAttribute="bottom" id="Eh2-hE-0fH"/>
+                <constraint firstItem="eje-GU-A5I" firstAttribute="width" secondItem="ulW-vO-mQa" secondAttribute="width" id="eTT-dD-llt"/>
+                <constraint firstItem="ulW-vO-mQa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="fKI-aP-JFt"/>
+                <constraint firstAttribute="bottom" secondItem="eje-GU-A5I" secondAttribute="bottom" id="kP3-S2-QnI"/>
+                <constraint firstItem="eje-GU-A5I" firstAttribute="height" secondItem="ulW-vO-mQa" secondAttribute="height" id="y0t-W5-buq"/>
+                <constraint firstAttribute="trailing" secondItem="ykp-5z-LaI" secondAttribute="trailing" constant="8" id="yN2-3q-rqs"/>
+            </constraints>
+            <point key="canvasLocation" x="660" y="467"/>
+        </view>
+    </objects>
+</document>

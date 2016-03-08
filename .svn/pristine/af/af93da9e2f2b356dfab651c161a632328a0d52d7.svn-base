@@ -1,0 +1,28 @@
+//
+//  OneLabelOneTextFieldOneBtnCell.h
+//  Ericsson
+//
+//  Created by xuming on 15/12/22.
+//  Copyright (c) 2015年 范传斌. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+@class OneLabelOneTextFieldOneBtnCell;
+@protocol OneLabelOneTextFieldOneBtnCellDelegate <NSObject>
+
+- (void)OneLabelOneTextFieldOneBtnCellTouchDown:(OneLabelOneTextFieldOneBtnCell *)cell;
+
+@end
+
+
+@interface OneLabelOneTextFieldOneBtnCell : UITableViewCell
+@property (weak, nonatomic) id<OneLabelOneTextFieldOneBtnCellDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UILabel *oneLabel;
+@property (weak, nonatomic) IBOutlet UITextField *oneTextField;
+@property (weak, nonatomic) IBOutlet UIImageView *oneImgView;
+@property (weak, nonatomic) IBOutlet UIButton *oneButton;
+@property (strong, nonatomic) id model;
+
++ (instancetype)cellWithTableView:(UITableView *)tableView;
+
+@end

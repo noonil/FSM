@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MyResourceSectionHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PsT-DA-A2L">
+                    <rect key="frame" x="10" y="0.0" width="100" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="OT2-PF-heB"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2WT-Bh-ce3">
+                    <rect key="frame" x="110" y="0.0" width="100" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="kII-DL-tdq"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="PsT-DA-A2L" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="7is-at-Ibn"/>
+                <constraint firstItem="2WT-Bh-ce3" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="QB4-nl-sNU"/>
+                <constraint firstAttribute="bottom" secondItem="2WT-Bh-ce3" secondAttribute="bottom" id="d1w-na-pNO"/>
+                <constraint firstItem="2WT-Bh-ce3" firstAttribute="leading" secondItem="PsT-DA-A2L" secondAttribute="trailing" id="dBn-FJ-WrS"/>
+                <constraint firstAttribute="bottom" secondItem="PsT-DA-A2L" secondAttribute="bottom" id="omh-CZ-dTM"/>
+                <constraint firstItem="PsT-DA-A2L" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="vEZ-ko-Tkf"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="firstLabel" destination="PsT-DA-A2L" id="uYv-eI-YlI"/>
+                <outlet property="secondLabel" destination="2WT-Bh-ce3" id="iKN-GM-M4E"/>
+            </connections>
+            <point key="canvasLocation" x="111" y="109"/>
+        </view>
+    </objects>
+</document>

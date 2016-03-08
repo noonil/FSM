@@ -1,0 +1,114 @@
+//
+//  SearchingAnnViewController.m
+//  Ericsson
+//
+//  Created by Min on 15/12/23.
+//  Copyright © 2015年 范传斌. All rights reserved.
+//
+
+#import "SearchingAnnViewController.h"
+#import "AnnounceSearchContentViewController.h"
+#import "AnnounceContentModel.h"
+#import "RMDateSelectionViewController.h"
+
+@interface SearchingAnnViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *titleTF;
+@property (weak, nonatomic) IBOutlet UITextField *startTimeTF;
+@property (weak, nonatomic) IBOutlet UITextField *endTimeTF;
+
+
+/** 弹出警示框 */
+@property (nonatomic,strong) UILabel * alertLabel;
+
+/** 覆盖view*/
+@property (nonatomic,strong) UIView * coverView;
+
+/** 判断的点击的是否是 startTime*/
+@property (nonatomic,assign,getter=isStartTime) BOOL startTime;
+
+@end
+
+@implementation SearchingAnnViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"查找公告";
+#warning 此处的时间选择器 需要封装
+   
+}
+#pragma mark - 按钮事件
+// 点击查询按钮
+- (IBAction)searchingBtnClicked:(id)sender {
+
+    
+    AnnounceSearchContentViewController * vc = [[AnnounceSearchContentViewController alloc]init];
+    vc.isSearchAnn  = YES;
+    vc.navTitle     = self.navTitle;
+    vc.requestType  = self.requestType;
+    vc.theTitle        = self.titleTF.text;
+    vc.startTime    = self.startTimeTF.text;
+    vc.endTime      = self.endTimeTF.text;
+    
+    NSMutableArray * array = [[NSMutableArray alloc]init];
+    array.array = self.navigationController.viewControllers;
+    [array removeObjectAtIndex:3];
+    [array addObject:vc];
+    
+    [self.navigationController setViewControllers:array];
+    
+}
+// 点击开始时间textField响应
+- (IBAction)startTimeBtnClicked:(id)sender {
+    //Create select action
+    [self setupTime:self.startTimeTF];
+}
+- (IBAction)endTImeBtnClicked:(id)sender {
+    [self setupTime:self.endTimeTF];
+}
+- (void)setupTime:(UITextField*)textField
+{
+    RMAction *selectAction = [RMAction actionWithTitle:@"确认" style:RMActionStyleDone andHandler:^(RMActionController *controller) {
+        NSLog(@"Successfully selected date: %@", ((UIDatePicker *)controller.contentView).date);
+        
+        textField.text = [self stringFromDate:((UIDatePicker *)controller.contentView).date];
+    }];
+    
+    //Create cancel action
+    RMAction *cancelAction = [RMAction actionWithTitle:@"取消" style:RMActionStyleCancel andHandler:^(RMActionController *controller) {
+        NSLog(@"Date selection was canceled");
+    }];
+    
+    //Create date selection view controller
+    RMDateSelectionViewController *dateSelectionController = [RMDateSelectionViewController actionControllerWithStyle:RMActionControllerStyleDefault selectAction:selectAction andCancelAction:cancelAction];
+    
+    dateSelectionController.title = @"日期选择";
+    //        dateSelectionController.message = @"This is a test message.\nPlease choose a date and press 'Select' or 'Cancel'.";
+    
+    //Now just present the date selection controller using the standard iOS presentation method
+    [self presentViewController:dateSelectionController animated:YES completion:nil];
+}
+#pragma mark - others
+// datePicker上的时间 转换成  NSString格式
+- (NSString *)stringFromDate:(NSDate *)date
+{
+    NSDateFormatter * formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSString * str = [NSString stringWithFormat:@"%@",[formatter stringFromDate:date]];
+    return str;
+}
+
+// 把NSString 转换成 NSDate
+- (NSDate *)dateFromString:(NSString*)dateString
+{
+    NSDateFormatter * formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate * date = [formatter dateFromString:dateString];
+    return date;
+}
+#pragma mark - touch
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
+
+@end

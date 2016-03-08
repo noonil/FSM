@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "cfed0975-bd08-9047-85aa-1a81be32b3a9++505",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "cfed0975-bd08-9047-85aa-1a81be32b3a9++505" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "cfed0975-bd08-9047-85aa-1a81be32b3a9++505" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "5A9D5F80-7515-46DD-9F93-00FE3CD4E576",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "cfed0975-bd08-9047-85aa-1a81be32b3a9++505" : "%E7%88%B1%E7%AB%8B%E4%BF%A1FSM%E7%B3%BB%E7%BB%9F\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Ericsson",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Ericsson.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/192.168.0.119\/svn\/%E7%88%B1%E7%AB%8B%E4%BF%A1FSM%E7%B3%BB%E7%BB%9F",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "cfed0975-bd08-9047-85aa-1a81be32b3a9++505"
+    }
+  ]
+}

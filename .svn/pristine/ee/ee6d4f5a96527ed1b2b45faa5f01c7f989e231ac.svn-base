@@ -1,0 +1,173 @@
+//
+//  ChangePwdViewController.m
+//  Ericsson
+//
+//  Created by 范传斌 on 15/10/9.
+//  Copyright (c) 2015年 范传斌. All rights reserved.
+//
+
+#import "ChangePwdViewController.h"
+#import "HeaderView.h"
+#import "FDAlertView.h"
+#import "PwdReminder.h"
+
+@interface ChangePwdViewController ()
+- (IBAction)OldPwd:(id)sender;
+- (IBAction)PresentPwd:(id)sender;
+- (IBAction)ComfirmNewPwd:(id)sender;
+
+@end
+
+@implementation ChangePwdViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title =@"修改密码";
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    
+    // Do any additional setup after loading the view from its nib.
+    //初始化头视图
+    self.headerView.imageView.image = [UIImage imageNamed:@"spare_search"];
+    self.headerView.title.text = @"请输入密码";
+
+    
+    //初始化控件风格
+    self.oldPwd.backgroundColor = [UIColor colorWithRed:241/255.0 green:241/255.0 blue:241/255.0 alpha:1.0];
+    self.presentPwd.backgroundColor = [UIColor colorWithRed:241/255.0 green:241/255.0 blue:241/255.0 alpha:1.0];;
+    self.comfirmNewPwd.backgroundColor = [UIColor colorWithRed:241/255.0 green:241/255.0 blue:241/255.0 alpha:1.0];;
+    
+    self.view.backgroundColor = [UIColor colorWithRed:241/255.0 green:241/255.0 blue:241/255.0 alpha:1.0];
+    self.changeBtn.backgroundColor = [UIColor colorWithRed:97/255.0 green:162/255.0 blue:210/255.0 alpha:1.0];
+    
+    //弹出密码格式提醒
+//    FDAlertView *alert = [[FDAlertView alloc] init];
+//    PwdReminder *contentView = [[NSBundle mainBundle] loadNibNamed:@"PwdReminder" owner:nil options:nil].lastObject;
+//    contentView.frame = CGRectMake(0, 0, 250, 220);
+//    alert.contentView = contentView;
+//    [alert show];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+   
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)changeClick:(id)sender {
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSString *  password = [defaults valueForKey:@"password"];
+    
+    if ([self.oldPwd.text isEqualToString:password]) {
+   
+         if (self.presentPwd.text==self.comfirmNewPwd.text) {
+            NSString *passWordRegex = @"^[A-Za-z0-9\\W]+$";
+            NSPredicate *passWordPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",passWordRegex];
+            if ([passWordPredicate evaluateWithObject:self.presentPwd.text]) {
+               NSLog(@"验证通过");
+               [self json];
+            
+            }else{
+              NSLog(@"验证失败");
+            }
+
+         }else{
+            self.comfirmNewPwd.text=nil;
+            self.comfirmNewPwd.placeholder=@"两次密码不同请重新输入";
+        }
+    }else{
+        self.oldPwd.text=nil;
+        self.oldPwd.placeholder=@"两次密码不同请重新输入";
+    
+    }
+    
+    
+}
+
+- (IBAction)OldPwd:(id)sender {
+    
+        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];//oc定义好的单例模式
+        NSString *  password = [defaults valueForKey:@"password"];
+    
+        if ([self.oldPwd.text isEqualToString:password]) {
+    
+            NSLog(@"oooooooooooooooo");
+            
+        }else{
+    
+            self.oldPwd.text=nil;
+            self.oldPwd.placeholder=@"重新输入";
+
+            
+        }
+}
+
+- (IBAction)PresentPwd:(id)sender {
+    if (self.presentPwd.text.length < 6) {
+                self.presentPwd.text=nil;
+                self.presentPwd.placeholder=@"重新输入";
+            }else
+                
+                NSLog(@"新密码确认成功");
+}
+
+- (IBAction)ComfirmNewPwd:(id)sender {
+    if (![self.presentPwd.text isEqualToString:self.comfirmNewPwd.text]) {
+        
+        self.comfirmNewPwd.text=nil;
+        self.comfirmNewPwd.placeholder=@"两次新密码输入不一致";
+                    }
+        
+//    [self.view endEditing:YES];
+}
+
+-(void)json{
+    //请求数据示例
+    NSUserDefaults *defaulsts = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [defaulsts objectForKey:@"username"];
+    NSString *sessionId = [defaulsts objectForKey:@"sessionId"];
+    
+    NSDictionary *params = @{@"userId":userId,@"oldPwd":self.oldPwd.text,@"newPwd":self.comfirmNewPwd.text};
+    
+    NSString *modelName=@"FSMset";
+    NSString *methodName=@"FSMChgPasswd";
+    NSString *sessonId= sessionId;
+    
+    NSString *sopeStr=
+    [[SoapUtility shareInstance] BuildSoapWithModelName:modelName methodName:methodName sessonId:sessonId requestData:params];
+    NSLog(@"sopeStr:%@",sopeStr);
+    
+    [MBProgressHUD showMessage:@"正在请求更改密码"];
+    //异步请求
+    [[SoapService shareInstance] PostAsync:sopeStr Success:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUD];
+        if ([dic[@"retCode"] isEqual:@0]) {
+            [MBProgressHUD showSuccess:@"更改密码成功"];
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        }else if ([dic[@"retCode"] isEqual:@(-1)]){
+            [MBProgressHUD showError:@"更改密码失败"];
+        }else if ([dic[@"retCode"] isEqual:@(-2)]){
+            UIViewController *rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
+            [UIApplication sharedApplication].keyWindow.rootViewController = rootViewController;
+            [MBProgressHUD showError:@"更改密码超时，请重新更改"];
+        }
+    } falure:^(NSError *err) {
+        //        NSLog(@"error:%@",err);
+        [MBProgressHUD hideHUD];
+        [MBProgressHUD showError:[NSString stringWithFormat:@"更改密码请求发送失败,err:%@",err]];
+    }];
+
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+       [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+
+}
+
+@end

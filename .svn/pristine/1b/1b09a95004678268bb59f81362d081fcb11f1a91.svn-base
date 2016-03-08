@@ -1,0 +1,361 @@
+//
+//  AnnounceSearchContentViewController.m
+//  Ericsson
+//
+//  Created by Min on 16/1/14.
+//  Copyright © 2016年 范传斌. All rights reserved.
+//
+
+#import "AnnounceSearchContentViewController.h"
+#import "AnnounceContentModel.h"
+#import "AnnounceContentCell.h"
+#import "AnnounceContentFrame.h"
+#import "AnnounceDetails.h"
+
+@interface AnnounceSearchContentViewController ()
+{
+    NSInteger currentPage;
+}
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (weak, nonatomic) IBOutlet UIButton *deleteChoosedAnnounce;
+@property (nonatomic,strong) NSMutableArray * announceDataArray;
+@property (nonatomic,strong) NSMutableArray * anncounceFrameDataAray;
+@property (nonatomic,strong) NSMutableArray * checkedData;
+@property (nonatomic,strong) NSMutableArray * checkedPath;
+
+@property (nonatomic,strong) UIButton * deleteBtn;
+@property (nonatomic,assign) BOOL isReaded;
+/** 是否是我的草稿控制器 */
+@property (nonatomic,assign) BOOL isMyDratVC;
+/** 是否有删除按钮 */
+@property (nonatomic,assign) BOOL isHasDeleteBtn;
+
+@end
+
+@implementation AnnounceSearchContentViewController
+#pragma mark - 系统方法
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.title = _navTitle?_navTitle:@"";
+    
+    currentPage = 1;
+
+    [self.tableView addHeaderWithTarget:self action:@selector(reloadResources)];
+    [self.tableView addFooterWithTarget:self action:@selector(reloadNewResources)];
+    
+
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (_isHasDeleteBtn) {  // 为我的公告，显示删除按钮
+      self.deleteChoosedAnnounce.hidden = NO;
+    }
+  
+    [self requestAnnounceData];
+}
+- (void)reloadResources{
+    currentPage = 1;
+    [self requestAnnounceData];
+}
+
+- (void)reloadNewResources{
+    currentPage ++;
+    [self requestAnnounceData];
+}
+
+- (void)requestAnnounceData
+{
+    //请求数据示例
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSString *sessonId = [defaults objectForKey:@"sessionId"];
+    NSString *userId = [defaults objectForKey:@"userId"];
+    
+    
+    
+    NSDictionary *params = nil;
+    NSString * modelName = @"FSMAnnounce";
+    NSString * methodName = nil;
+    
+    if (!_isSearchAnn) { // 如果不是查询的，就是我的公告
+        
+        if ([_navTitle isEqualToString:@"我的公告"]) {
+            params = @{@"userId":userId,
+                       @"pageIdx":@(currentPage)
+                       };
+            methodName = @"FSMGetMyAnnounce";
+            _isReaded = YES;
+        }else { // 我的草稿中的
+            NSMutableArray * myDraftArr = [AnnounceContentModel searchWithWhere:nil orderBy:nil offset:0 count:100];
+            NSMutableArray * myDraftFrameArr = [self contentFramesWithContentModel:myDraftArr];
+            
+            [self.announceDataArray removeAllObjects];
+            [self.anncounceFrameDataAray removeAllObjects];
+            
+            [self.announceDataArray addObjectsFromArray:myDraftArr];
+            [self.anncounceFrameDataAray addObjectsFromArray:myDraftFrameArr];
+            [self.tableView reloadData];
+            
+            _isMyDratVC = YES;
+            
+            return;
+        }
+    }else{ // 查询的需要判断,上一级type
+        
+        params = @{@"userId":userId,
+                             @"title":_theTitle?_theTitle:@"",
+                             @"type":@(_requestType),
+                             @"startTs":_startTime?_startTime:@"",
+                             @"endTs":_endTime?_endTime:@"",
+                             @"pageIdx":@(currentPage)
+                             };
+        methodName = @"FSMQueryAnnounce";
+    }
+    
+    NSString *sopeStr=
+    [[SoapUtility shareInstance] BuildSoapWithModelName:modelName methodName:methodName sessonId:sessonId requestData:params];
+    [MBProgressHUD showMessage:@"正在请求数据..."];
+    //异步请求
+    [[SoapService shareInstance] PostAsync:sopeStr Success:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUD];
+        if ([dic[@"retCode"] isEqual:@0]) {
+            
+            BOOL isMyAnnounceVC = [_navTitle isEqualToString:@"我的公告"];
+            // 将 字典数组 转换 模型数组
+            NSMutableArray * modelArray = [AnnounceContentModel objectArrayWithKeyValuesArray:isMyAnnounceVC?dic[@"myAnnounceList"]:dic[@"searchedAnnounceList"]];
+            
+            // 把数据为空的对象删除
+            for (int i = 0; i < modelArray.count; i++) {
+                AnnounceContentModel * model = modelArray[i];
+                if ([model.content isEqualToString:@""]) {
+                    [modelArray removeObject:model];
+                }
+            }
+            
+            
+            NSMutableArray * newFrames = [self contentFramesWithContentModel:modelArray];
+            if (currentPage == 1) {
+                [self.announceDataArray removeAllObjects];
+                [self.anncounceFrameDataAray removeAllObjects];
+            }
+            // 将 AnnoucneContentModel 数组 转化成 AnnoucneContentFrame数组
+            [self.announceDataArray addObjectsFromArray:modelArray];
+            [self.anncounceFrameDataAray addObjectsFromArray:newFrames];
+            [self.tableView reloadData];
+            
+            // ？？？？？？？
+            if (modelArray == nil || modelArray == 0) {
+                currentPage --;
+            }
+            
+        }else if([dic[@"retCode"] isEqual:@(-1)]) {
+            [self.navigationController.view makeToast:@"请求失败"];
+        }else if ([dic[@"retCode"] isEqual:@(-2)]) {
+            UIViewController *rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
+            [UIApplication sharedApplication].keyWindow.rootViewController = rootViewController;
+            [self.navigationController.view makeToast:@"会话超时，请重新登录"];
+        }
+        
+        [self.tableView headerEndRefreshing];
+        [self.tableView footerEndRefreshing];
+    } falure:^(NSError *err) {
+        [MBProgressHUD hideHUD];
+        [self.navigationController.view makeToast:@"请求发送错误"];
+        [self.tableView headerEndRefreshing];
+        [self.tableView footerEndRefreshing];
+    }];
+}
+
+#pragma mark - TableView dataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    
+    return self.announceDataArray.count;
+}
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    AnnounceContentCell * cell = [AnnounceContentCell cellWithTableView:tableView];
+    AnnounceContentModel * model = self.announceDataArray[indexPath.row];
+    
+    if (self.anncounceFrameDataAray) {
+        cell.contentFrame = self.anncounceFrameDataAray[indexPath.row];
+    }
+    
+    if ([self.checkedData containsObject:model]) {
+        //勾选状态
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }else{
+        //取消选中状态
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([self.title isEqualToString:@"我的公告"]) {
+        //一旦选中后，立即取消选中
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        
+        AnnounceContentModel * model = self.announceDataArray[indexPath.row];
+        if ([self.checkedData containsObject:model]) {
+            //取消选中状态，并从checkedData里面移除
+            [self.checkedData removeObject:model];
+            [self.checkedPath removeObject:indexPath];
+        }else{
+            //勾选状态，并添加到checkedData里面
+            [self.checkedData addObject:model];
+            [self.checkedPath addObject:indexPath];
+        }
+        //重新加载这一行
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+    }else{
+        
+        AnnounceContentModel * contentModel = self.announceDataArray[indexPath.row];
+        
+        AnnounceDetails * vc    = [[AnnounceDetails alloc]init];
+        vc.annoucneId           = contentModel.annouceId;
+        vc.indexrow             = indexPath.row;
+        vc.contentModel         = contentModel;
+        if ([self.title isEqualToString:@"我的草稿"]) {
+            vc.isComeFromDraft      = YES;
+        }
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    AnnounceContentFrame * frames = self.anncounceFrameDataAray[indexPath.row];
+    return frames.cellHeight;
+}
+
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 3;
+}
+
+#pragma mark - Lazy
+- (NSMutableArray *)announceDataArray
+{
+    if (!_announceDataArray) {
+        _announceDataArray = [NSMutableArray array];
+    }
+    return _announceDataArray;
+}
+- (NSMutableArray *)anncounceFrameDataAray
+{
+    if (!_anncounceFrameDataAray) {
+        _anncounceFrameDataAray = [NSMutableArray array];
+    }
+    return _anncounceFrameDataAray;
+}
+- (NSMutableArray *)checkedData
+{
+    if (!_checkedData) {
+        _checkedData = [[NSMutableArray alloc]init];
+    }
+    return _checkedData;
+}
+- (NSMutableArray *)checkedPath
+{
+    if (!_checkedPath) {
+        _checkedPath = [[NSMutableArray alloc]init];
+    }
+    return _checkedPath;
+}
+#pragma mark - custome method
+- (NSMutableArray*)contentFramesWithContentModel:(NSArray *)contentArray {
+    NSMutableArray * frames = [NSMutableArray array];
+    for (AnnounceContentModel *contentModel in contentArray) {
+        AnnounceContentFrame *f = [[AnnounceContentFrame alloc]init];
+        f.contentModel = contentModel;
+        [frames addObject:f];
+
+    }
+    return frames;
+}
+- (void)deleteEquestData
+{
+
+    NSMutableArray * array = [NSMutableArray array];
+    
+    for (AnnounceContentModel * model in self.checkedData) {
+        [array addObject:model.annouceId];
+    }
+    
+    //请求数据示例
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSString *sessonId = [defaults objectForKey:@"sessionId"];
+    NSString *userId = [defaults objectForKey:@"userId"];
+    
+    NSString * modelName = @"FSMAnnounce";
+    NSString * methodName = @"FSMDelAnnounce";
+    
+    NSDictionary *params = @{@"userId":userId,
+                             @"announceIds":array
+                             };
+    
+    
+    NSString *sopeStr=
+    [[SoapUtility shareInstance] BuildSoapWithModelName:modelName methodName:methodName sessonId:sessonId requestData:params];
+    [MBProgressHUD showMessage:@"正在删除公告..."];
+    //异步请求
+    [[SoapService shareInstance] PostAsync:sopeStr Success:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUD];
+        if ([dic[@"retCode"] isEqual:@0]) {
+            NSLog(@"删除成功");
+            
+            [self.announceDataArray removeObjectsInArray:self.checkedData];
+            //重新加载表格
+            //[self.tableView reloadData];
+            
+            // [self.tableView reloadRowsAtIndexPaths:self.checkedPath withRowAnimation:UITableViewRowAnimationLeft];
+            
+            [self.tableView deleteRowsAtIndexPaths:self.checkedPath withRowAnimation:UITableViewRowAnimationLeft];
+            
+            [self.checkedData removeAllObjects];
+            [self.checkedPath removeAllObjects];
+            
+            
+        }else if([dic[@"retCode"] isEqual:@(-1)]) {
+            [self.navigationController.view makeToast:@"请求失败"];
+        }else if ([dic[@"retCode"] isEqual:@(-2)]) {
+            UIViewController *rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
+            [UIApplication sharedApplication].keyWindow.rootViewController = rootViewController;
+            [self.navigationController.view makeToast:@"会话超时，请重新登录"];
+        }
+        
+    } falure:^(NSError *err) {
+        [MBProgressHUD hideHUD];
+        [self.navigationController.view makeToast:@"请求发送错误"];
+    }];
+
+}
+#pragma mark - set
+-(void)setNavTitle:(NSString *)navTitle
+{
+    _navTitle = navTitle;
+    if ([navTitle isEqualToString:@"我的公告"]) {
+        _isHasDeleteBtn = YES;
+    }
+    
+}
+- (IBAction)deleteChoosedAnnounce:(id)sender {
+    
+    if (self.checkedData.count == 0) {
+        [self.view makeToast:@"请选择后删除"];
+        return;
+    }
+    //删除数据   发送请求,请求成功后把数据删除并刷新界面
+    [self deleteEquestData];
+}
+
+@end

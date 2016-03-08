@@ -1,0 +1,201 @@
+//
+//  GatherCell.m
+//  Ericsson
+//
+//  Created by xuming on 16/2/19.
+//  Copyright © 2016年 范传斌. All rights reserved.
+//
+
+#import "GatherCell.h"
+#import "GatherCellFrame.h"
+
+@interface GatherCell ()<UITextFieldDelegate>
+{
+    GatherObject *gatherObject;
+    //键盘高度
+    CGFloat kbHeight;
+}
+
+
+@end
+
+@implementation GatherCell
+
+- (void)awakeFromNib {
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
++(instancetype)cellWithTableView:(UITableView *)tableView{
+
+    static NSString *idd=@"cell";
+    GatherCell *cell=[tableView dequeueReusableCellWithIdentifier:idd];
+    if (cell==nil) {
+        cell=[[GatherCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:idd];
+        cell.tableView=tableView;
+    }
+    
+    return cell;
+}
+
+-(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+
+    self=[super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        //添加所有需要显示的子控件
+        
+        [self setupSubViews];
+        
+    }
+    return self;
+}
+
+-(void)setupSubViews{
+    
+    UIImageView *starImgView=[[UIImageView alloc]init];
+    [self.contentView addSubview:starImgView];
+    self.starImgView=starImgView;
+    
+    UILabel *titleLabel=[[UILabel alloc]init];
+    [self.contentView addSubview:titleLabel];
+    self.titleLabel=titleLabel;
+
+    UITextField *textField=[[UITextField alloc]init];
+    [self.contentView addSubview:textField];
+    self.textField=textField;
+    self.textField.delegate=self;
+    
+    UIButton *button=[[UIButton alloc]init];
+    [self.contentView addSubview:button];
+    [button addTarget:self action:@selector(buttonTouchDown) forControlEvents:UIControlEventTouchDown];
+    self.button=button;
+    
+    UIImageView *buttonImgView=[[UIImageView alloc]init];
+    [self.contentView addSubview:buttonImgView];
+    self.buttonImgView=buttonImgView;
+
+}
+
+
+-(void)setGatherCellFrame:(GatherCellFrame *)gatherCellFrame{
+    _gatherCellFrame=gatherCellFrame;
+    gatherObject=gatherCellFrame.gatherObject;
+    
+    self.starImgView.frame=gatherCellFrame.starImgViewF;
+    self.titleLabel.frame=gatherCellFrame.titleLabelF;
+    self.textField.frame=gatherCellFrame.textFieldF;
+    self.button.frame=gatherCellFrame.buttonF;
+    self.buttonImgView.frame=gatherCellFrame.buttonImgViewF;
+    
+    
+    
+    /*设置数据*/
+    
+    GatherObject *model=gatherCellFrame.gatherObject;
+    
+    self.starImgView.image=[UIImage imageNamed:@"wo_elect.png"];
+    
+    self.titleLabel.text=model.chfield;
+    self.titleLabel.font=[UIFont systemFontOfSize:13];
+    self.textField.borderStyle=UITextBorderStyleRoundedRect;
+    
+
+    
+    //如果是非选择框
+    if ([model.isSelect isEqualToString:@"N"]) {
+        self.button.hidden=YES;
+        
+        //textField可编辑
+        self.textField.text=model.value;
+        self.textField.enabled=YES;
+
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+        
+
+    }
+    //如果是选择框
+    else
+    {
+        self.button.hidden=NO;
+        self.buttonImgView.image=[UIImage imageNamed:@"editbutton.png"];
+        
+        //textField不可编辑
+        self.textField.text=model.chineseValue;
+        self.textField.enabled=NO;;
+        
+    }
+    
+}
+
+#pragma mark -cell上的按钮被按下
+-(void)buttonTouchDown{
+    
+
+    
+      //取消系统键盘的显示。用[self.textField resignFirstResponder]方式,在由非列表输入框跳到列表输入框的时候，键盘不会隐藏。
+      [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+    
+    if ([self.delegate respondsToSelector:@selector(gatherCellButtonDidTouchDown: cell:)]) {
+        [self.delegate performSelector:@selector(gatherCellButtonDidTouchDown: cell:)withObject:gatherObject  withObject:self];
+    }
+}
+#pragma mark - textField delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if ([self.delegate respondsToSelector:@selector(getherCellTextFieldShouldReturn: )]) {
+        [self.delegate performSelector:@selector(getherCellTextFieldShouldReturn: ) withObject:self ];
+    }
+//    
+//    //隐藏键盘
+//    CGSize size= self.tableVeiw.contentSize;
+//    size.height-=250;
+//    NSLog(@"隐藏键盘=%f",size.height);
+//    [self.tableVeiw setContentSize:size];
+
+
+    [textField resignFirstResponder];
+    return YES;
+}
+
+
+#pragma mark - 消息通知
+
+//注册键盘出现消失通知
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    CGRect keyboardBounds = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    self.tableView.contentInset = UIEdgeInsetsMake(self.tableView.contentInset.top, 0, keyboardBounds.size.height, 0);
+        //NSLog(@"键盘显示self.tableVeiw.contentInset =%@",NSStringFromUIEdgeInsets( self.tableView.contentInset));
+
+}
+
+//键盘将要消失的通知回调方法
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    self.tableView.contentInset = UIEdgeInsetsMake(self.tableView.contentInset.top, 0, 0, 0);
+    //NSLog(@"消失self.tableVeiw.contentInset =%@",NSStringFromUIEdgeInsets( self.tableView.contentInset));
+
+}
+
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+
+@end
+
+
+
+
+
+

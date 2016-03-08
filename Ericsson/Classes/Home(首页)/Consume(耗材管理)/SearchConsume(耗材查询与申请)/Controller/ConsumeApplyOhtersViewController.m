@@ -1,0 +1,524 @@
+//
+//  ConsumeApplyOhtersViewController.m
+//  Ericsson
+//
+//  Created by xuming on 15/12/17.
+//  Copyright (c) 2015年 范传斌. All rights reserved.
+//
+
+#import "ConsumeApplyOhtersViewController.h"
+#import "ImgLabelHeadView.h"
+#import "OneButtonView.h"
+#import "MBProgressHUD+MJ.h"
+#import "MyApplyListViewController.h"
+#import "CanConnectOrderList.h"
+#import "SearchViewController.h"
+#import "HandlingOrderDetailController.h"
+#import "HandledOrderDetailController.h"
+#import "MyApplyListViewController.h"
+#import "SearchViewController.h"
+
+@interface ConsumeApplyOhtersViewController ()<UIGestureRecognizerDelegate, UIAlertViewDelegate>
+{
+
+    UITextField *applyReasonTextField;
+    UITextField *destinationTextField;//目的地
+
+}
+@property (weak, nonatomic) IBOutlet ImgLabelHeadView *headView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *addAgainBtn;
+@property (weak, nonatomic) IBOutlet UIButton *submitApplyBtn;
+@property (strong, nonatomic) NSMutableArray *dataArray;
+@property (strong, nonatomic) NSMutableArray *consumeArray;
+@property (strong, nonatomic) UIAlertView * workSheetAlertView;//工单的alertView；
+
+
+- (IBAction)addAgainBtn_TouchUpInside:(id)sender;
+- (IBAction)submitApplyBtn_TouchUpInside:(id)sender;
+
+
+@end
+
+@implementation ConsumeApplyOhtersViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    
+    [self setOthers];
+
+
+}
+
+-(void)setOthers{
+    self.title = @"耗材申请";
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithRed:244/255.0 green:244/255.0 blue:244/255.0 alpha:1.0];
+
+    
+    self.headView.oneLabel.text=[NSString stringWithFormat:@"申请详情"];
+    
+    //检查购物车中，是否已经放了相同id的耗材，如果有相同的id，就替换掉。
+    //没有同名的就。
+    int j=-1;
+    for (int i=0; i<_consumeArray.count; i++) {
+        Consume *consume=(Consume *)_consumeArray[i];
+        if ([consume.consumableId isEqualToString:_consume.consumableId]) {
+            //记录有相同id的耗材位置
+            j=i;
+            break;
+        }
+        
+
+    }
+    
+    Consume *consume=[self.consume copy];
+    if (j==-1) {
+        [self.consumeArray addObject:consume];
+    }
+    else{
+        [self.consumeArray replaceObjectAtIndex:j withObject:consume];
+        
+    
+    }
+
+ 
+
+    [self.tableView reloadData];
+    
+    
+    
+}
+
+
+//-(void)handleSingleTap{
+//    [applyReasonTextField resignFirstResponder];
+//    [destinationTextField resignFirstResponder];
+//    [_connectOrderTextField resignFirstResponder];
+//    
+//    
+//}
+
+#pragma mark - request Data
+- (void)loadData
+{
+    //请求数据示例
+    NSMutableArray *consumeArr=[NSMutableArray new];
+    for (int i=0; i<self.consumeArray.count; i++) {
+        Consume *model=[_consumeArray objectAtIndex:i];
+        
+        NSDictionary *dic=@{@"consumablePartId":model.consumableId,
+                            @"applyNumber":model.applyNumber};
+        [consumeArr addObject:dic];
+    }
+
+    
+    NSDictionary *params = @{
+                             @"woId":(_woId==nil)?@"N/A":_woId,
+                             @"depotId":_consume.depotId,
+                             @"applyReason":applyReasonTextField.text ,
+                             @"destination":destinationTextField.text,
+                             @"consumableList":consumeArr
+                             };
+    
+    NSString *sopeStr=
+    [[SoapUtility shareInstance] BuildSoapWithModelName:@"FSMConsumable" methodName:@"FSMApplyConsumables" sessonId:sessonId requestData:params];
+    
+    //异步请求
+    [[SoapService shareInstance] PostAsync:sopeStr Success:^(NSDictionary *dic) {
+            [MBProgressHUD hideHUD];
+        
+        //清空跳转传来的工单信息
+        NSUserDefaults *defaulsts = [NSUserDefaults standardUserDefaults];
+        [defaulsts setObject:nil forKey:@"baseInfo"];
+        
+        //清空在工单列表中选择的工单信息
+        _canConnectWork=nil;
+
+        if ([dic[@"retCode"]  isEqual: @0]) {
+    
+            [MBProgressHUD hideHUD];
+    
+            //是否从工单跳转过来
+            BOOL fromWorkOrder;
+            fromWorkOrder=false;
+            
+            NSMutableArray *navVCsArray=[NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+            for (long i=navVCsArray.count-1; i>0; i--) {
+                UIViewController *vc=navVCsArray[i];
+                if ( [vc isMemberOfClass:[HandlingOrderDetailController class]] || [vc isMemberOfClass:[HandledOrderDetailController class]])
+                {
+                    fromWorkOrder=true;
+                    break;
+                }
+            }
+    
+            
+            for (long i=navVCsArray.count-1; i>0; i--) {
+                UIViewController *vc=navVCsArray[i];
+                //如果不是从工单跳转过来的，跳转到耗材搜索页面
+                if ( [vc isMemberOfClass:[SearchViewController class]] && fromWorkOrder==false)
+                {
+                    [self.navigationController.view makeToast:KHudSuccessMessage];
+                    [self.navigationController setViewControllers:navVCsArray];
+                    [self.navigationController popToViewController:vc animated:YES];
+                    break;
+                }
+                else if ( [vc isMemberOfClass:[HandlingOrderDetailController class]] && fromWorkOrder==true){
+       
+                    //如果是从工单跳转过来的，跳转到我的申请页面
+
+                    [self.navigationController.view makeToast:KHudSuccessMessage];
+
+                    MyApplyListViewController *myVc=[[MyApplyListViewController alloc]init];
+                    [navVCsArray addObject:myVc];
+                    [self.navigationController setViewControllers:navVCsArray];
+                    
+                    break;
+                    
+                }
+
+                else{
+                    
+                    [navVCsArray removeObject:vc];
+                 
+                
+                }
+
+            }
+            
+
+        }
+        else if ([dic[@"retCode"]  isEqual: @(-1)])
+        {
+            [self.view makeToast:KHudResponse1];
+        }
+        else if ([dic[@"retCode"]  isEqual: @(-2)])
+        {
+            [self.view makeToast:KHudResponse2];
+        }
+        
+        
+        
+    } falure:^(NSError *err) {
+        [MBProgressHUD hideHUD];
+        
+        //清空跳转传来的工单信息
+        NSUserDefaults *defaulsts = [NSUserDefaults standardUserDefaults];
+        [defaulsts setObject:nil forKey:@"baseInfo"];
+        
+        [self.view makeToast:KHudErrorMessage];
+
+        
+        
+        
+    }];
+    
+}
+
+
+
+/*
+ 键盘收回事件，UITextField协议方法
+ **/
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return NO;
+}
+
+
+#pragma mark - Table view data source
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    return KCellHeight;
+
+}
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 5+self.consumeArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *idd=@"cell";
+    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:idd];
+    if (cell==nil) {
+        cell=[UITableViewCell new];
+    }
+    
+
+    if (indexPath.row==0)
+    {
+        [self cellAddText:cell str:[NSString stringWithFormat:@"关联工单:"]];
+    }
+    else if (indexPath.row==1)
+    {
+        cell.textLabel.text=[NSString stringWithFormat:@"申请仓库:%@",self.consume.depotName];
+    }
+    else if (indexPath.row==2)
+    {
+        NSArray *arr=[[NSArray alloc]initWithObjects:@"耗材名称",@"耗材型号",@"申请数量",nil];
+        [self cellAddLabel:cell strArray:arr font:nil];
+
+    }
+    else if (3<=indexPath.row && indexPath.row<=3+_consumeArray.count-1)
+    {
+        Consume *model=_consumeArray[indexPath.row-3];
+        UIFont *font=[UIFont systemFontOfSize:14];
+        NSArray *arr=[[NSArray alloc]initWithObjects:model.consumableName,model.consumableModel,model.applyNumber,nil];
+        
+        [self cellAddLabel:cell strArray:arr font:font];
+    }
+    else if (indexPath.row==_consumeArray.count+3)
+    {
+        [self cellAddText:cell str:@"申请原因:"];
+        
+    }
+    else if (indexPath.row==_consumeArray.count+4)
+    {
+        [self cellAddText:cell str:@"耗材目的地:"];
+        
+    }
+
+    
+    
+    return cell;
+}
+
+-(void)cellAddLabel:(UITableViewCell *)cell strArray:(NSArray *)arr font:(UIFont *)font{
+    float labWidth=KIphoneWidth/3;
+    
+    for (int i=0; i<=2; i++) {
+        UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(labWidth*i+18, 0, labWidth, KCellHeight)];
+        label.text=arr[i];
+        if (font!=nil) {
+            label.font=font;
+        }
+        [cell.contentView addSubview:label];
+        
+    }
+}
+
+-(void)cellAddText:(UITableViewCell *)cell str:(NSString *)str{
+    
+    cell.textLabel.text=str;
+    
+    NSDictionary *attrs = @{NSFontAttributeName : cell.textLabel.font};
+    CGRect rect=[@"耗材目的地:" boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil];
+    
+    UITextField *textField=[[UITextField alloc]init];
+    textField.frame=CGRectMake(rect.size.width+18, 8, KIphoneWidth-(rect.size.width+18)-3, 34);
+    textField.borderStyle= UITextBorderStyleRoundedRect;
+    textField.delegate=self;
+    [cell addSubview:textField];
+    
+    
+    if ([str isEqualToString:@"申请原因:"]) {
+        //如果是从关联工单页面跳转过来的
+        if(_canConnectWork!=nil){
+            textField.text=_canConnectWork.woFormContent;
+        }
+        //如果是从工单页面跳转过来
+        else if(_baseInfo !=nil){
+            textField.text=_baseInfo.contentDescribe;
+        
+        }
+        applyReasonTextField=textField;
+        
+    }
+    else if ([str isEqualToString:@"耗材目的地:"]) {
+        //如果是从关联工单页面跳转过来的
+        if(_canConnectWork!=nil){
+            textField.text=_canConnectWork.woObj;
+        }
+        //如果是从工单页面跳转过来
+        else if(_baseInfo !=nil){
+            textField.text=_baseInfo.maintenanceObject;
+        }
+        destinationTextField=textField;
+        
+    }
+    else  if ([str isEqualToString:@"关联工单:"]) {
+        
+        _connectOrderTextField=textField;
+        _connectOrderTextField.enabled=false;
+        _connectOrderTextField.placeholder=@"未进行工单关联";
+
+        
+//        NSUserDefaults *defaulsts = [NSUserDefaults standardUserDefaults];
+//        _baseInfo=[defaulsts objectForKey:@"baseInfo"];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSData *tokenObject = [userDefaults objectForKey:@"baseInfo"];
+        _baseInfo = [NSKeyedUnarchiver unarchiveObjectWithData:tokenObject];
+        
+        
+
+        //如果是从工单页面跳转过来的。（从工单跳转过来时，把woId，woNumber存在NSUserDefaults里面。）
+        if (_baseInfo!=nil) {
+            _connectOrderTextField.text=_baseInfo.woNumber;
+            _woId=_baseInfo.maintenanceObjectId;
+        }
+        //如果是从关联工单页面跳转过来的
+        else if(_canConnectWork!=nil){
+            _woId=_canConnectWork.woId;
+            _connectOrderTextField.text=_canConnectWork.woNo;
+            _woId=_canConnectWork.woId;
+        }
+        
+    }
+
+
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+     if (3<=indexPath.row && indexPath.row<=3+_consumeArray.count-1)
+     {
+     
+         UIAlertView *alertView=[[UIAlertView alloc]initWithTitle:nil message:@"是否删除该耗材申请" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
+         alertView.tag=indexPath.row-3;
+         [alertView show];
+     }
+
+    
+    
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+
+#pragma mark - 消息通知
+
+//注册键盘出现消失通知
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    CGRect keyboardBounds = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    self.tableView.contentInset = UIEdgeInsetsMake(self.tableView.contentInset.top, 0, keyboardBounds.size.height, 0);
+    //NSLog(@"键盘显示self.tableVeiw.contentInset =%@",NSStringFromUIEdgeInsets( self.tableView.contentInset));
+    
+}
+
+//键盘将要消失的通知回调方法
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    self.tableView.contentInset = UIEdgeInsetsMake(self.tableView.contentInset.top, 0, 0, 0);
+    //NSLog(@"消失self.tableVeiw.contentInset =%@",NSStringFromUIEdgeInsets( self.tableView.contentInset));
+    
+}
+
+
+#pragma mark - touch up inside
+
+- (IBAction)addAgainBtn_TouchUpInside:(id)sender {
+    NSInteger count=self.navigationController.viewControllers.count;
+    
+    for (NSInteger i=count-1; i>0; i--) {
+        id vc=self.navigationController.viewControllers[i];
+        if ([vc isMemberOfClass:[SearchViewController class ]]) {
+            [self.navigationController popToViewController:vc animated:YES];
+            return;
+        }
+
+        
+    }
+    
+}
+
+- (IBAction)submitApplyBtn_TouchUpInside:(id)sender {
+    
+    if ([_connectOrderTextField.text isEqualToString:@""]) {
+
+        [self.workSheetAlertView show];
+    }
+    else{
+        
+        [MBProgressHUD showMessage:KHudIsUpdataMessage];
+        [self loadData];
+    
+    }
+
+}
+
+#pragma mark - alert view delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    //如果是关联工单的alertView
+    if (alertView.tag==1000) {
+        
+        //取消
+        if (buttonIndex==0) {
+        }
+        else if (buttonIndex==1) {
+            CanConnectOrderList *vc=[[CanConnectOrderList alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        
+        else if (buttonIndex==2){
+            [MBProgressHUD showMessage:KHudIsUpdataMessage];
+            [self loadData];
+        }
+        
+    }
+    //如果是删除consume的alertview
+    else  {
+        if (buttonIndex==0) {
+
+        }
+        
+        else if (buttonIndex==1) {
+            Consume *consume=[_consumeArray objectAtIndex:alertView.tag];
+            [_consumeArray removeObject:consume];
+            [_tableView reloadData];
+        }
+
+        
+
+    }
+
+}
+
+
+#pragma  mark - get/set
+
+-(NSMutableArray *)consumeArray{
+
+    if (_consumeArray==nil) {
+        _consumeArray=[[NSMutableArray alloc]init];
+    }
+    return _consumeArray;
+}
+
+-(NSMutableArray *)dataArray{
+    if (!_dataArray) {
+        _dataArray = [[NSMutableArray alloc] init];
+    }
+    return _dataArray;
+}
+
+-(UIAlertView *)workSheetAlertView{
+    if (_workSheetAlertView==nil) {
+        _workSheetAlertView = [[UIAlertView alloc] initWithTitle:@"" message:@"还没有关联工单，是否关联" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"是", @"否",nil];
+        _workSheetAlertView.tag=1000;
+    }
+    return _workSheetAlertView;
+}
+
+@end

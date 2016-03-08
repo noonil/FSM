@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="150" id="KGk-i7-Jjw" customClass="TroubleHistoryListCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="149"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016-01-12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vrz-yp-Tic">
+                        <rect key="frame" x="8" y="8" width="180" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="180" id="c44-jh-OcY"/>
+                            <constraint firstAttribute="height" constant="21" id="h1P-pb-dOl"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dealManName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="leD-Xw-gP0">
+                        <rect key="frame" x="208" y="8" width="105" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="BFn-xB-mFL"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="troubleSummary--处理总结" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PRr-vL-hiE">
+                        <rect key="frame" x="8" y="105" width="304" height="36"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="troubleDes--故障内容" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="28R-Gh-e6r">
+                        <rect key="frame" x="8" y="37" width="304" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="60" id="cV5-4Z-Xwz"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="vrz-yp-Tic" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="0h3-wK-CiH"/>
+                    <constraint firstAttribute="bottom" secondItem="PRr-vL-hiE" secondAttribute="bottom" constant="8" id="Cu2-yt-Y07"/>
+                    <constraint firstItem="leD-Xw-gP0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="FCq-2Y-BKK"/>
+                    <constraint firstItem="leD-Xw-gP0" firstAttribute="leading" secondItem="vrz-yp-Tic" secondAttribute="trailing" constant="20" id="TOs-ak-TwU"/>
+                    <constraint firstItem="28R-Gh-e6r" firstAttribute="top" secondItem="leD-Xw-gP0" secondAttribute="bottom" constant="8" id="VAn-v3-l6b"/>
+                    <constraint firstItem="PRr-vL-hiE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="VtD-dB-b33"/>
+                    <constraint firstAttribute="trailing" secondItem="28R-Gh-e6r" secondAttribute="trailing" constant="8" id="Wfv-3Q-hHs"/>
+                    <constraint firstItem="vrz-yp-Tic" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Y0z-4S-pXd"/>
+                    <constraint firstAttribute="trailing" secondItem="PRr-vL-hiE" secondAttribute="trailing" constant="8" id="YYx-JQ-3u1"/>
+                    <constraint firstItem="28R-Gh-e6r" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="m1A-ob-hxq"/>
+                    <constraint firstItem="PRr-vL-hiE" firstAttribute="top" secondItem="28R-Gh-e6r" secondAttribute="bottom" constant="8" id="tT3-HL-krT"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
+            <connections>
+                <outlet property="dealManName" destination="leD-Xw-gP0" id="Pri-uf-X2h"/>
+                <outlet property="dealTime" destination="vrz-yp-Tic" id="xv5-fx-YtN"/>
+                <outlet property="troubleDes" destination="28R-Gh-e6r" id="0dU-po-CBR"/>
+                <outlet property="troubleSummary" destination="PRr-vL-hiE" id="NIO-wR-Nd4"/>
+            </connections>
+            <point key="canvasLocation" x="269" y="353"/>
+        </tableViewCell>
+    </objects>
+</document>

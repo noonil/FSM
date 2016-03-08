@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MyResourceViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vIX-r5-Teq">
+                        <rect key="frame" x="18" y="8" width="100" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="cU2-h0-jA9"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i49-ul-wPz">
+                        <rect key="frame" x="118" y="8" width="100" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="aTF-03-v56"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xSh-h3-5xR">
+                        <rect key="frame" x="218" y="9" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="Ds0-ty-yiZ"/>
+                            <constraint firstAttribute="width" constant="25" id="Zll-lx-Lca"/>
+                        </constraints>
+                        <state key="normal" image="edit_bg">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="showDetail:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="8Sa-mM-bZZ"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7jn-HG-8YJ">
+                        <rect key="frame" x="268" y="11" width="39" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="0kk-OH-xkr"/>
+                            <constraint firstAttribute="width" constant="39" id="hGR-3l-OGQ"/>
+                        </constraints>
+                        <state key="normal" image="resource_take">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="switchStatus:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Lmq-nt-5Pf"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5SY-18-cgw">
+                        <rect key="frame" x="8" y="8" width="200" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="200" id="hu8-bm-Teh"/>
+                        </constraints>
+                        <state key="normal">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="chooseContactOrder:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="zQr-i9-ndH"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="centerY" secondItem="7jn-HG-8YJ" secondAttribute="centerY" id="2dS-od-uPh"/>
+                    <constraint firstItem="i49-ul-wPz" firstAttribute="leading" secondItem="vIX-r5-Teq" secondAttribute="trailing" id="EVT-Qp-Le1"/>
+                    <constraint firstItem="vIX-r5-Teq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="FKz-pQ-399"/>
+                    <constraint firstItem="5SY-18-cgw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="KAx-G3-erI"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="i49-ul-wPz" secondAttribute="bottom" id="Mcx-yR-ER9"/>
+                    <constraint firstItem="7jn-HG-8YJ" firstAttribute="leading" secondItem="xSh-h3-5xR" secondAttribute="trailing" constant="25" id="YRN-qh-Zfs"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="5SY-18-cgw" secondAttribute="bottom" id="a9s-zz-j32"/>
+                    <constraint firstItem="i49-ul-wPz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="cM7-v6-KBt"/>
+                    <constraint firstItem="vIX-r5-Teq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="iez-kb-dx8"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="7jn-HG-8YJ" secondAttribute="trailing" constant="5" id="kc5-MP-q8u"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="vIX-r5-Teq" secondAttribute="bottom" id="uUZ-uo-nBM"/>
+                    <constraint firstItem="5SY-18-cgw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="xg3-z1-SRB"/>
+                    <constraint firstAttribute="centerY" secondItem="xSh-h3-5xR" secondAttribute="centerY" id="zBn-DZ-EhO"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="code" destination="i49-ul-wPz" id="SS4-y8-KMg"/>
+                <outlet property="name" destination="vIX-r5-Teq" id="id3-lC-NAB"/>
+                <outlet property="switchBtn" destination="7jn-HG-8YJ" id="xnE-Vc-RVz"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="edit_bg" width="19" height="18"/>
+        <image name="resource_take" width="39" height="14"/>
+    </resources>
+</document>

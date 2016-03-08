@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ThreeLabelCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="imI-y4-DIx">
+                        <rect key="frame" x="0.0" y="39" width="320" height="10"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="mRL-YZ-Zaf"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="栾城基站18（try）" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NgI-pm-NFN">
+                        <rect key="frame" x="0.0" y="0.0" width="151" height="39"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在处理" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VM2-Tj-hAA">
+                        <rect key="frame" x="154" y="0.0" width="68" height="39"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="68" id="kNx-ye-Rub"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2015-08-04" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIk-ZK-2et">
+                        <rect key="frame" x="230" y="0.0" width="90" height="39"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="90" id="gEv-hu-HjH"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="NgI-pm-NFN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Cd5-rS-Fjz"/>
+                    <constraint firstAttribute="trailing" secondItem="imI-y4-DIx" secondAttribute="trailing" id="DKR-jv-fLh"/>
+                    <constraint firstItem="imI-y4-DIx" firstAttribute="top" secondItem="NgI-pm-NFN" secondAttribute="bottom" id="FGs-fS-QiP"/>
+                    <constraint firstItem="VM2-Tj-hAA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="NoF-K9-RS4"/>
+                    <constraint firstAttribute="trailing" secondItem="tIk-ZK-2et" secondAttribute="trailing" id="SUe-9G-aMz"/>
+                    <constraint firstAttribute="bottom" secondItem="imI-y4-DIx" secondAttribute="bottom" id="TJq-Fd-YwH"/>
+                    <constraint firstItem="tIk-ZK-2et" firstAttribute="leading" secondItem="VM2-Tj-hAA" secondAttribute="trailing" id="Wjw-D5-JJC"/>
+                    <constraint firstItem="imI-y4-DIx" firstAttribute="top" secondItem="tIk-ZK-2et" secondAttribute="bottom" id="hth-L2-ai6"/>
+                    <constraint firstItem="tIk-ZK-2et" firstAttribute="leading" secondItem="VM2-Tj-hAA" secondAttribute="trailing" constant="8" id="jiw-4p-Fc0"/>
+                    <constraint firstItem="imI-y4-DIx" firstAttribute="top" secondItem="tIk-ZK-2et" secondAttribute="bottom" id="mts-3b-UON"/>
+                    <constraint firstItem="NgI-pm-NFN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="qZ0-lc-AXA"/>
+                    <constraint firstItem="imI-y4-DIx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="uMM-xX-8S8"/>
+                    <constraint firstItem="VM2-Tj-hAA" firstAttribute="leading" secondItem="NgI-pm-NFN" secondAttribute="trailing" constant="3" id="viX-2Z-xQ9"/>
+                    <constraint firstItem="tIk-ZK-2et" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="xD6-TQ-Q1P"/>
+                    <constraint firstItem="imI-y4-DIx" firstAttribute="top" secondItem="VM2-Tj-hAA" secondAttribute="bottom" id="xV5-Wv-2zw"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="Wjw-D5-JJC"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="dateLabel" destination="tIk-ZK-2et" id="WnB-oa-vNA"/>
+                <outlet property="resourchNameLabel" destination="NgI-pm-NFN" id="wCd-Gz-OQZ"/>
+                <outlet property="stateLabel" destination="VM2-Tj-hAA" id="K4J-9J-YAb"/>
+            </connections>
+            <point key="canvasLocation" x="244" y="222"/>
+        </tableViewCell>
+    </objects>
+</document>

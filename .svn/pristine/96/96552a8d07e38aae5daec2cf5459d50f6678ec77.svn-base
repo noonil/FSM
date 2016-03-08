@@ -1,0 +1,163 @@
+//
+//  InvestigationHistoryViewController.m
+//  Ericsson
+//
+//  Created by 张永鹏 on 16/1/7.
+//  Copyright © 2016年 范传斌. All rights reserved.
+//
+
+#import "InvestigationHistoryViewController.h"
+#import "PopupObjectList.h"
+#import "InvestigationHistoryList.h"
+#import "MaintenanceObjectTypes.h"
+#import "Organization.h"
+
+@interface InvestigationHistoryViewController ()<UITextViewDelegate,PopupObjectListDelegate,UIGestureRecognizerDelegate>{
+    PopupObjectList *pop;
+    NSMutableArray *maintenanceObjectTypeArr;
+    
+    NSMutableArray *moTypeNameArr;   // 维护对象类型
+    NSMutableArray *moTypeIdArr;
+    NSString *moTypeIdStr;
+    
+    NSMutableArray *organizeNameArr; // 组织机构
+    NSMutableArray *organizeIdArr;
+    NSString *organizeIdStr;
+}
+@property (weak, nonatomic) IBOutlet UITextView *maintainNameTextView;
+@property (weak, nonatomic) IBOutlet UILabel *maintainNameLabel;//用于充当textView的placeholder
+@property (strong, nonatomic) IBOutlet UITextField *maintenanceObjectType; //维护对象类型
+@property (strong, nonatomic) IBOutlet UITextField *orgId; //组织机构
+
+@end
+
+@implementation InvestigationHistoryViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    maintenanceObjectTypeArr = [NSMutableArray array];
+    moTypeNameArr = [NSMutableArray array];
+    moTypeIdArr = [NSMutableArray array];
+    
+    self.title = @"排障历史";
+    
+    [self loadMOTypesFromDb];
+    
+    //轻拍手势  用来移除键盘
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(RemoveKeyboard:)];
+    [self.view addGestureRecognizer:tapGesture];
+}
+
+-(void)RemoveKeyboard:(UITapGestureRecognizer *)gesture{
+    [self.maintainNameTextView resignFirstResponder];
+}
+
+-(void)loadMOTypesFromDb{
+    NSMutableArray *moTypesArr = [[MyLKDBHelper getUsingLKDBHelper]searchWithSQL:@"select *from @t" toClass:[MaintenanceObjectTypes class]];
+    
+    for (int i = 0; i < moTypesArr.count; i++) {
+        MaintenanceObjectTypes *model = (MaintenanceObjectTypes*)moTypesArr[i];
+        [moTypeNameArr addObject:model.maintenanceTypeName];
+        [moTypeIdArr addObject:model.maintenanceTypeId];
+    }
+}
+
+-(void)loadOrganizeFromDb{
+    organizeNameArr = [NSMutableArray new];
+    organizeIdArr = [NSMutableArray new];
+    
+    NSMutableArray *organizeArr = [[MyLKDBHelper getUsingLKDBHelper]searchWithSQL:@"select * from @t" toClass:[Organization class]];
+    
+    for (int i = 0; i < organizeArr.count; i++) {
+        Organization *model = (Organization *)organizeArr[i];
+        [organizeNameArr addObject:model.orgName];
+        [organizeIdArr addObject:model.orgId];
+    }
+}
+
+//维护对象类型选择
+- (IBAction)maintainTypesBtnClick:(UIButton *)sender {
+    [_maintainNameTextView resignFirstResponder];
+    
+    pop = [[PopupObjectList alloc] initWithData:moTypeNameArr selectedData:_maintenanceObjectType.text fromWhichObject:_maintenanceObjectType];
+    pop.delegate = self;
+    [pop presentPopupControllerAnimated];
+
+}
+//组织机构选择
+- (IBAction)organizeBtnClick:(UIButton *)sender {
+    [_maintainNameTextView resignFirstResponder];
+    
+    [self loadOrganizeFromDb];
+    
+    pop = [[PopupObjectList alloc] initWithData:organizeNameArr selectedData:_orgId.text fromWhichObject:_orgId];
+    pop.delegate = self;
+    [pop presentPopupControllerAnimated];
+}
+//维护对象名称选择
+- (IBAction)maintainNameBtnClick:(id)sender {
+    [_maintainNameTextView becomeFirstResponder];
+    _maintainNameTextView.delegate = self;
+}
+
+
+
+-(void)popupObjectListDidSelectRowAtIndexPath:(NSString *)selectedData fromWhichObject:(id)fromWhichObject row:(NSInteger)row{
+    if (fromWhichObject == _maintenanceObjectType) {
+        _maintenanceObjectType.text = moTypeNameArr[row];
+        moTypeIdStr = moTypeIdArr[row];
+    }
+    else if (fromWhichObject == _orgId){
+        _orgId.text = organizeNameArr[row];
+        organizeIdStr = organizeIdArr[row];
+    }
+}
+//查询
+- (IBAction)searchBtnClick:(UIButton *)sender {
+    
+    if ([_maintenanceObjectType.text isEqual: @""]) {
+        [self.view makeToast:@"请先选择维护对象类型"];
+    }
+    else{
+        InvestigationHistoryList *list = [[InvestigationHistoryList alloc] init];
+        list.maintenanceObjectTypeId = moTypeIdStr;
+        list.maintenanceObjectName = _maintainNameTextView.text;
+        list.orgId = organizeIdStr;
+        
+        [self.navigationController pushViewController:list animated:YES];
+    
+    }
+    
+}
+
+
+
+//textView的委托方法   用于控制placeholder的显示
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    if (![text isEqualToString:@""]) {
+        _maintainNameLabel.hidden = YES;
+    }
+    if ([text isEqualToString:@""] && range.location == 0 && range.length == 1) {
+        _maintainNameLabel.hidden = NO;
+    }
+    
+    return YES;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "cfed0975-bd08-9047-85aa-1a81be32b3a9++505",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "cfed0975-bd08-9047-85aa-1a81be32b3a9++505" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "cfed0975-bd08-9047-85aa-1a81be32b3a9++505" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "9BFFA0EF-0FE0-4544-B56C-619ADA838DF8",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "cfed0975-bd08-9047-85aa-1a81be32b3a9++505" : "%E7%88%B1%E7%AB%8B%E4%BF%A1FSM%E7%B3%BB%E7%BB%9F"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "FSM",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "FSM.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/192.168.0.119\/svn\/%E7%88%B1%E7%AB%8B%E4%BF%A1FSM%E7%B3%BB%E7%BB%9F",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "cfed0975-bd08-9047-85aa-1a81be32b3a9++505"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+//
+//  AddAnnounceDepartmentVC.h
+//  Ericsson
+//
+//  Created by Min on 15/12/28.
+//  Copyright © 2015年 范传斌. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@protocol AddAnnounceDepartmentVCDelegate <NSObject>
+@optional
+- (void)submitDepartmentSelected:(NSString*)depart;
+
+@end
+
+@interface AddAnnounceDepartmentVC : BaseViewController
+
+
+/** 确认提交按钮 */
+@property (nonatomic,weak) id<AddAnnounceDepartmentVCDelegate> delegate;
+@end

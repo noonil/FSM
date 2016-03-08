@@ -1,0 +1,44 @@
+//
+//  HandledOrderCell.m
+//  Ericsson
+//
+//  Created by 范传斌 on 15/11/30.
+//  Copyright © 2015年 范传斌. All rights reserved.
+//
+
+#import "HandledOrderCell.h"
+
+@implementation HandledOrderCell
+
+-(void)drawRect:(CGRect)rect
+{
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [UIColor colorWithRed:241/255.0f green:241/255.0f blue:241/255.0f alpha:1].CGColor);
+    CGContextFillRect(context, CGRectMake(0, rect.size.height - 5, rect.size.width, 5));
+    
+}
+
+- (void)awakeFromNib {
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+
++ (instancetype)cellWithTableView:(UITableView *)tableView
+{
+    static NSString *ID = @"HandledOrderCell";
+    HandledOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if (cell == nil) {
+        cell = (HandledOrderCell *)[[[NSBundle mainBundle] loadNibNamed:@"HandledOrderCell" owner:nil options:nil] lastObject];
+    }
+    
+    //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+@end
