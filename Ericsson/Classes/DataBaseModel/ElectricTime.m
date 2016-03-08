@@ -12,9 +12,6 @@
 
 
 
-
-
-
 //表名
 +(NSString *)getTableName
 {
